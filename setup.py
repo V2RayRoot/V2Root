@@ -12,7 +12,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     package_data={
-        "v2root": ["lib/*"],  # مطمئن شو که lib/ توی v2root/ باشه
+        "v2root": ["lib/*"],
     },
     classifiers=[
         "Programming Language :: Python :: 3",
