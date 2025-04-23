@@ -1,0 +1,59 @@
+CC = x86_64-w64-mingw32-gcc
+CFLAGS = -Wall -O2 -shared -I/mingw64/include
+LDFLAGS = -L/mingw64/lib -ljansson -lws2_32 -lwinhttp -lcrypt32 -lssl -lcrypto
+OBJDIR = build_win
+SRCDIR = src
+OBJECTS = $(OBJDIR)/libv2root_vless.o $(OBJDIR)/libv2root_vmess.o $(OBJDIR)/libv2root_shadowsocks.o $(OBJDIR)/libv2root_manage.o $(OBJDIR)/libv2root_core.o $(OBJDIR)/libv2root_utils.o $(OBJDIR)/libv2root_win.o
+TARGET = $(OBJDIR)/libv2root.dll
+DEPENDENCIES = $(OBJDIR)/libjansson-4.dll $(OBJDIR)/libwinpthread-1.dll
+
+all: $(TARGET) $(DEPENDENCIES)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LDFLAGS)
+
+$(OBJDIR)/libjansson-4.dll:
+	@mkdir -p $(OBJDIR)
+	cp /mingw64/bin/libjansson-4.dll $(OBJDIR)/
+
+$(OBJDIR)/libwinpthread-1.dll:
+	@mkdir -p $(OBJDIR)
+	cp /mingw64/bin/libwinpthread-1.dll $(OBJDIR)/
+
+$(OBJDIR)/libv2root_vless.o: $(SRCDIR)/libv2root_vless.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_vless.c -o $(OBJDIR)/libv2root_vless.o
+
+$(OBJDIR)/libv2root_vmess.o: $(SRCDIR)/libv2root_vmess.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_vmess.c -o $(OBJDIR)/libv2root_vmess.o
+
+$(OBJDIR)/libv2root_shadowsocks.o: $(SRCDIR)/libv2root_shadowsocks.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_shadowsocks.c -o $(OBJDIR)/libv2root_shadowsocks.o
+
+$(OBJDIR)/libv2root_manage.o: $(SRCDIR)/libv2root_manage.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_manage.c -o $(OBJDIR)/libv2root_manage.o
+
+$(OBJDIR)/libv2root_core.o: $(SRCDIR)/libv2root_core.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_core.c -o $(OBJDIR)/libv2root_core.o
+
+$(OBJDIR)/libv2root_utils.o: $(SRCDIR)/libv2root_utils.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_utils.c -o $(OBJDIR)/libv2root_utils.o
+
+$(OBJDIR)/libv2root_win.o: $(SRCDIR)/libv2root_win.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(SRCDIR)/libv2root_win.c -o $(OBJDIR)/libv2root_win.o
+
+install:
+	@echo "Installing prerequisites for Windows (MSYS2/MinGW)..."
+	pacman -Syu --noconfirm
+	pacman -S --noconfirm mingw-w64-x86_64-gcc mingw-w64-x86_64-make mingw-w64-x86_64-jansson mingw-w64-x86_64-libwinpthread-git mingw-w64-x86_64-openssl
+
+clean:
+	rm -rf $(OBJDIR)
+
+.PHONY: all install clean

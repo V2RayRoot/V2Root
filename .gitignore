@@ -1,0 +1,7 @@
+# Sphinx build files
+docs/_build/
+
+# Other temporary files
+*.bak
+*.pyc
+__pycache__/

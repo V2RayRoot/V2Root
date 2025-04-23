@@ -1,0 +1,31 @@
+CC = gcc
+CFLAGS = -Wall -O2 -shared -fPIC -I/usr/include
+LDFLAGS = -L/usr/lib -ljansson -lcurl
+SRC_DIR = src
+BUILD_DIR = build_linux
+TARGET = $(BUILD_DIR)/libv2root.so
+
+SOURCES = $(SRC_DIR)/libv2root_vless.c \
+          $(SRC_DIR)/libv2root_vmess.c \
+          $(SRC_DIR)/libv2root_shadowsocks.c \
+          $(SRC_DIR)/libv2root_manage.c \
+          $(SRC_DIR)/libv2root_core.c \
+          $(SRC_DIR)/libv2root_utils.c \
+          $(SRC_DIR)/libv2root_service.c \
+          $(SRC_DIR)/libv2root_linux.c
+
+OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(BUILD_DIR)
+
+.PHONY: all clean
