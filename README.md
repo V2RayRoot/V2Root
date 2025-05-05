@@ -32,10 +32,13 @@ v2 = V2ROOT()
 
 # Set a VLESS string
 vless_str = "vless://your-uuid@your-server:443?security=tls&type=tcp"
-v2.start_proxy(vless_str, http_port=10808, socks_port=1080)
+v2.set_config_string(vless_str)
+
+# Start V2Ray
+v2.start()
 
 # Stop V2Ray when done
-v2.stop_proxy()
+v2.stop()
 ```
 
 ## Requirements
