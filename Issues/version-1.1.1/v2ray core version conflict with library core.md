@@ -69,7 +69,7 @@ sudo systemctl start v2ray
 
 ---
 
-# Persian
+# فارسی
 
 ## 🛠️ نصب V2Ray نسخه 4.34.0 برای رفع مشکلات
 
