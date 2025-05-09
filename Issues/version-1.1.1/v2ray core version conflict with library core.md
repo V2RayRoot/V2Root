@@ -1,16 +1,16 @@
 # English
 
-## 🛠️ Alternative: Install V2Ray 4.31.0 to Avoid Issues
+## 🛠️ Alternative: Install V2Ray 4.34.0 to Avoid Issues
 
 **Some users have reported encountering errors when running the service or testing latency with V2Ray.**  
 It was identified that these issues are caused by a conflict between the library core (version 1.1.1) and the latest V2Ray version (5.31.0). This problem will be fixed in version 1.1.2.  
-In the meantime, to avoid these issues, you can follow the steps below to install **V2Ray version 4.31.0**.
+In the meantime, to avoid these issues, you can follow the steps below to install **V2Ray version 4.34.0**.
 
-### Step 1: Download V2Ray 4.31.0
+### Step 1: Download V2Ray 4.34.0
 
 ```bash
 cd /tmp
-wget https://github.com/v2fly/v2ray-core/releases/download/v4.31.0/v2ray-linux-64.zip
+wget https://github.com/v2fly/v2ray-core/releases/download/v4.34.0/v2ray-linux-64.zip
 ```
 
 ### Step 2: Install `unzip` and extract files
@@ -71,17 +71,17 @@ sudo systemctl start v2ray
 
 # Persian
 
-## 🛠️ نصب V2Ray نسخه 4.31.0 برای رفع مشکلات
+## 🛠️ نصب V2Ray نسخه 4.34.0 برای رفع مشکلات
 
 **برخی از کاربران هنگام اجرای سرویس یا تست تاخیر با ارورهایی از سمت V2Ray مواجه شده‌اند.**  
 مشخص شد که این مشکلات به دلیل تداخل هسته کتابخانه (ورژن ۱.۱.۱) با آخرین نسخه فعلی V2Ray (ورژن ۵.۳۱.۰) رخ می‌دهد. این مشکل در نسخه ۱.۱.۲ رفع خواهد شد.  
-اما در حال حاضر برای رفع این مشکلات، می‌توانید از راهنمای زیر برای نصب **V2Ray نسخه ۴.۳۱.۰** استفاده کنید.
+اما در حال حاضر برای رفع این مشکلات، می‌توانید از راهنمای زیر برای نصب **V2Ray نسخه ۴.۳۴.۰** استفاده کنید.
 
-### گام ۱: دانلود V2Ray نسخه 4.31.0
+### گام ۱: دانلود V2Ray نسخه 4.34.0
 
 ```bash
 cd /tmp
-wget https://github.com/v2fly/v2ray-core/releases/download/v4.31.0/v2ray-linux-64.zip
+wget https://github.com/v2fly/v2ray-core/releases/download/v4.34.0/v2ray-linux-64.zip
 ```
 
 ### گام ۲: نصب `unzip` و استخراج فایل‌ها
