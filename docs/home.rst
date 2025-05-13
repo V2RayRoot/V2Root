@@ -33,9 +33,9 @@ Project Information
 
 **Authors**: Project V2root | Sepehr0Day
 
-**Release Date**: April 23, 2025
+**Release Date**: May 14, 2025
 
-**Version**: 1.1.0
+**Version**: 1.1.2
 
 **About the Project**: V2ROOT was created to address the complexities of managing V2Ray proxy configurations, offering a unified solution for both Windows and Linux environments. The project integrates low-level system operations with a high-level Python interface, enabling users to automate proxy management tasks efficiently.
 
