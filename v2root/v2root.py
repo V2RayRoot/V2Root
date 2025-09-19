@@ -6,6 +6,9 @@ import platform
 import subprocess
 from colorama import init, Fore, Style
 
+# Import our custom logger
+from .logger import logger, log_function_call, configure_logger
+
 init(autoreset=True)
 
 class V2ROOT:
@@ -17,6 +20,7 @@ class V2ROOT:
     managing proxy settings, testing multiple configurations for connectivity and latency,
     and pinging servers to measure latency.
     """
+    @log_function_call(log_args=True)
     def __init__(self, http_port=2300, socks_port=2301):
         """
         Initialize the V2ROOT instance with specified HTTP and SOCKS ports.
@@ -88,8 +92,11 @@ class V2ROOT:
 
         try:
             self.lib = ctypes.CDLL(lib_path)
+            logger.debug(f"Successfully loaded library: {lib_path}")
         except OSError as e:
-            raise OSError(f"Failed to load {lib_name}: {str(e)}. Ensure all dependencies (libjansson-4.dll, libssl-1_1-x64.dll, libcrypto-1_1-x64.dll) are in {os.path.dirname(lib_path)}")
+            error_msg = f"Failed to load {lib_name}: {str(e)}. Ensure all dependencies are in {os.path.dirname(lib_path)}"
+            logger.error(error_msg)
+            raise OSError(error_msg)
 
         self.http_port = http_port
         self.socks_port = socks_port
@@ -112,6 +119,7 @@ class V2ROOT:
         self.lib.ping_server.restype = ctypes.c_int
 
         self._init_v2ray('config.json', v2ray_path)
+        logger.info("V2ROOT initialized successfully")
         print(f"{Fore.GREEN}V2ROOT initialized successfully{Style.RESET_ALL}")
 
     def _explain_error_code(self, error_code, context=""):
@@ -125,7 +133,9 @@ class V2ROOT:
         Returns:
             str: A colorful, concise error message with simple fix instructions and a documentation link.
         """
-
+        # Log the error for debugging
+        logger.error(f"Error code {error_code} encountered during: {context}")
+        
         error_codes = {
             -1: (
                 f"{Fore.RED}General Error{Fore.RESET}",
@@ -231,6 +241,7 @@ class V2ROOT:
 
         return error_message
     
+    @log_function_call
     def _init_v2ray(self, config_file, v2ray_path):
         """
         Initialize the V2Ray core with a configuration file and V2Ray executable path.
@@ -242,14 +253,20 @@ class V2ROOT:
         Raises:
             Exception: If initialization fails with a non-zero error code.
         """
+        logger.debug(f"Initializing V2Ray with config: {config_file}, path: {v2ray_path}")
         result = self.lib.init_v2ray(config_file.encode('utf-8'), v2ray_path.encode('utf-8'))
         if result != 0:
             error_message = self._explain_error_code(result, "Failed to initialize V2ROOT")
+            logger.error(f"V2Ray initialization failed with code {result}")
             if result == -1 and self.is_linux:
-                error_message += f"\nThis may be due to V2Ray not being properly installed or configured at {v2ray_path}. Please ensure V2Ray is installed (e.g., sudo apt install v2ray) and the executable is functional."
+                extra_info = f"This may be due to V2Ray not being properly installed or configured at {v2ray_path}."
+                logger.error(extra_info)
+                error_message += f"\n{extra_info} Please ensure V2Ray is installed and the executable is functional."
             raise Exception(error_message)
+        logger.info("V2Ray core initialized successfully")
         self.is_initialized = True 
         
+    @log_function_call
     def reset_network_proxy(self):
         """
         Reset system network proxy settings.
@@ -257,15 +274,22 @@ class V2ROOT:
         Raises:
             Exception: If resetting the proxy settings fails.
         """
+        logger.info("Resetting network proxy settings")
         try:
             self.stop()
-        except:
-            pass
+        except Exception as e:
+            logger.warning(f"Failed to stop V2Ray before resetting proxy: {str(e)}")
+            
         result = self.lib.reset_network_proxy()
         if result != 0:
-            raise Exception(self._explain_error_code(result, "Failed to reset network proxy"))
+            error_msg = self._explain_error_code(result, "Failed to reset network proxy")
+            logger.error(f"Failed to reset network proxy: code {result}")
+            raise Exception(error_msg)
+        
+        logger.info("Network settings reset successfully")
         print(f"{Fore.GREEN}Network settings reset successfully!{Style.RESET_ALL}")
 
+    @log_function_call
     def set_config_string(self, config_str):
         """
         Parse and set a V2Ray configuration string.
@@ -283,9 +307,17 @@ class V2ROOT:
         if not config_str.strip():
             raise ValueError("config_str cannot be empty")
 
+        # Log truncated config string (for privacy)
+        safe_config = config_str[:20] + "..." if len(config_str) > 20 else config_str
+        logger.info(f"Setting configuration: {safe_config}")
+        
         result = self.lib.parse_config_string(config_str.encode('utf-8'), self.http_port, self.socks_port)
         if result != 0:
-            raise Exception(self._explain_error_code(result, "Failed to parse config string"))
+            error_msg = self._explain_error_code(result, "Failed to parse config string")
+            logger.error(f"Failed to parse config string: code {result}")
+            raise Exception(error_msg)
+        
+        logger.info("Configuration applied successfully")
         print(f"{Fore.GREEN}Connection OK{Style.RESET_ALL}")
 
     def start(self):
@@ -301,10 +333,14 @@ class V2ROOT:
         Raises:
             Exception: If starting the V2Ray service fails.
         """
-
+        logger.info(f"Starting V2Ray (HTTP port: {self.http_port}, SOCKS port: {self.socks_port})")
         pid = self.lib.start_v2ray(self.http_port, self.socks_port)
         if pid < 0:
-            raise Exception(self._explain_error_code(pid, "Failed to start V2Ray"))
+            error_msg = self._explain_error_code(pid, "Failed to start V2Ray")
+            logger.error(f"Failed to start V2Ray: code {pid}")
+            raise Exception(error_msg)
+        
+        logger.info(f"V2Ray started successfully with PID: {pid}")
         print(f"{Fore.GREEN}V2Ray started successfully with PID: {pid}{Style.RESET_ALL}")
 
         if self.is_linux:

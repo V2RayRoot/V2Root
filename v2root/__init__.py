@@ -23,8 +23,9 @@ Repository: https://github.com/V2RayRoot/V2Root
 """
 
 from .v2root import V2ROOT
+from .logger import configure_logger, get_logger, debug, info, warning, error, critical
 
-__all__ = ['V2ROOT']
+__all__ = ['V2ROOT', 'configure_logger', 'get_logger', 'debug', 'info', 'warning', 'error', 'critical']
 __version__ = '1.1.2'
 __author__ = 'Project V2Root, Sepehr0Day'
 __license__ = 'MIT'
