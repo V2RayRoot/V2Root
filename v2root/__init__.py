@@ -9,12 +9,14 @@ This library provides a comprehensive interface for working with V2Ray proxy con
 - Save and load configurations
 - Start and stop V2Ray proxy services
 - Manage system proxy settings
+- Handle subscription-based configurations
 
 Developed in Python with C extensions for high performance, V2Root supports:
 - Cross-platform compatibility (Windows and Linux)
 - Multiple protocol support (TCP, HTTP/2, WebSocket, mKCP, QUIC, gRPC)
 - Security features (TLS, Reality)
 - Configuration management
+- Subscription management
 
 Authors: Project V2Root, Sepehr0Day
 Version: 1.1.2
@@ -24,8 +26,13 @@ Repository: https://github.com/V2RayRoot/V2Root
 
 from .v2root import V2ROOT
 from .logger import configure_logger, get_logger, debug, info, warning, error, critical
+from .subscription import SubscriptionManager, Subscription, SubscriptionError, FetchError, ParseError
 
-__all__ = ['V2ROOT', 'configure_logger', 'get_logger', 'debug', 'info', 'warning', 'error', 'critical']
+__all__ = [
+    'V2ROOT', 
+    'configure_logger', 'get_logger', 'debug', 'info', 'warning', 'error', 'critical',
+    'SubscriptionManager', 'Subscription', 'SubscriptionError', 'FetchError', 'ParseError'
+]
 __version__ = '1.1.2'
 __author__ = 'Project V2Root, Sepehr0Day'
 __license__ = 'MIT'
