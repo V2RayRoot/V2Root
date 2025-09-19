@@ -505,3 +505,212 @@ class V2ROOT:
 
         print(f"{Fore.GREEN}Test completed. Valid configs saved to {output_file}{Style.RESET_ALL}")
         return best_config
+    
+    def save_config(self, config_str, name=None):
+        """
+        Save a V2Ray configuration string to the configs directory.
+        
+        Args:
+            config_str (str): V2Ray configuration string to save.
+            name (str, optional): Name to save the config as. If None, uses a timestamp.
+                
+        Returns:
+            str: Path to the saved configuration file.
+            
+        Raises:
+            TypeError: If config_str is not a string.
+            ValueError: If config_str is empty or invalid.
+        """
+        if not isinstance(config_str, str):
+            raise TypeError("config_str must be a string")
+        if not config_str.strip():
+            raise ValueError("config_str cannot be empty")
+            
+        # Validate config string before saving
+        try:
+            latency = ctypes.c_int()
+            result = self.lib.test_config_connection(config_str.encode('utf-8'), 
+                                                    ctypes.byref(latency), 
+                                                    self.http_port, 
+                                                    self.socks_port)
+            if result != 0:
+                raise ValueError(f"Invalid configuration: {self._explain_error_code(result)}")
+        except Exception as e:
+            raise ValueError(f"Failed to validate configuration: {str(e)}")
+            
+        # Create configs directory if it doesn't exist
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        configs_dir = os.path.join(script_dir, "configs")
+        os.makedirs(configs_dir, exist_ok=True)
+        
+        # Generate filename
+        if name is None:
+            import time
+            name = f"config_{int(time.time())}"
+        if not name.endswith('.txt'):
+            name += '.txt'
+            
+        # Save config
+        file_path = os.path.join(configs_dir, name)
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(config_str)
+            
+        print(f"{Fore.GREEN}Configuration saved to {file_path}{Style.RESET_ALL}")
+        return file_path
+        
+    def load_saved_config(self, name):
+        """
+        Load a saved V2Ray configuration by name.
+        
+        Args:
+            name (str): Name of the configuration file to load.
+            
+        Returns:
+            str: The loaded configuration string.
+            
+        Raises:
+            FileNotFoundError: If the configuration file doesn't exist.
+        """
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        configs_dir = os.path.join(script_dir, "configs")
+        
+        if not name.endswith('.txt'):
+            name += '.txt'
+            
+        file_path = os.path.join(configs_dir, name)
+        
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Configuration file {name} not found")
+            
+        with open(file_path, 'r', encoding='utf-8') as f:
+            config = f.read().strip()
+            
+        print(f"{Fore.GREEN}Configuration loaded from {file_path}{Style.RESET_ALL}")
+        return config
+    
+    def list_saved_configs(self):
+        """
+        List all saved V2Ray configurations.
+        
+        Returns:
+            list: A list of configuration filenames.
+        """
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        configs_dir = os.path.join(script_dir, "configs")
+        os.makedirs(configs_dir, exist_ok=True)
+        
+        configs = [f for f in os.listdir(configs_dir) if f.endswith('.txt')]
+        
+        if not configs:
+            print(f"{Fore.YELLOW}No saved configurations found{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.GREEN}Found {len(configs)} saved configurations:{Style.RESET_ALL}")
+            for i, config in enumerate(configs, 1):
+                print(f"{Fore.CYAN}{i}. {config}{Style.RESET_ALL}")
+                
+        return configs
+        
+    def batch_test(self, config_list, timeout=10, parallel=False):
+        """
+        Test multiple configurations with improved feedback and optional parallel processing.
+        
+        Args:
+            config_list (list): List of configuration strings to test.
+            timeout (int, optional): Maximum time in seconds to test each config. Defaults to 10.
+            parallel (bool, optional): Whether to test configs in parallel. Defaults to False.
+                
+        Returns:
+            list: List of tuples (config, latency) for successful configurations, sorted by latency.
+        """
+        if not isinstance(config_list, list):
+            raise TypeError("config_list must be a list")
+        if not config_list:
+            raise ValueError("config_list cannot be empty")
+            
+        results = []
+        total = len(config_list)
+        
+        if parallel and platform.system() != "Windows":  # Parallel processing not recommended on Windows due to proxy issues
+            try:
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor(max_workers=min(5, total)) as executor:
+                    futures = {executor.submit(self._test_single_config, config, timeout): config for config in config_list}
+                    
+                    for i, future in enumerate(concurrent.futures.as_completed(futures), 1):
+                        config = futures[future]
+                        try:
+                            latency = future.result()
+                            if latency > 0:
+                                results.append((config, latency))
+                                print(f"{Fore.GREEN}[{i}/{total}] Config OK, Latency: {latency}ms{Style.RESET_ALL}")
+                            else:
+                                print(f"{Fore.RED}[{i}/{total}] Config failed{Style.RESET_ALL}")
+                        except Exception as e:
+                            print(f"{Fore.RED}[{i}/{total}] Error testing config: {str(e)}{Style.RESET_ALL}")
+            except ImportError:
+                print(f"{Fore.YELLOW}Parallel testing requires concurrent.futures module. Falling back to sequential testing.{Style.RESET_ALL}")
+                parallel = False
+                
+        if not parallel:
+            for i, config in enumerate(config_list, 1):
+                print(f"{Fore.CYAN}Testing config {i}/{total}{Style.RESET_ALL}")
+                try:
+                    latency = self._test_single_config(config, timeout)
+                    if latency > 0:
+                        results.append((config, latency))
+                        print(f"{Fore.GREEN}Config OK, Latency: {latency}ms{Style.RESET_ALL}")
+                    else:
+                        print(f"{Fore.RED}Config failed{Style.RESET_ALL}")
+                except Exception as e:
+                    print(f"{Fore.RED}Error testing config: {str(e)}{Style.RESET_ALL}")
+                    
+        # Sort results by latency
+        results.sort(key=lambda x: x[1])
+        
+        print(f"{Fore.GREEN}Testing completed. {len(results)}/{total} configs successful.{Style.RESET_ALL}")
+        if results:
+            print(f"{Fore.GREEN}Best config has latency {results[0][1]}ms{Style.RESET_ALL}")
+            
+        return results
+        
+    def _test_single_config(self, config, timeout=10):
+        """
+        Test a single configuration with timeout.
+        
+        Args:
+            config (str): Configuration string to test.
+            timeout (int, optional): Maximum time in seconds to test. Defaults to 10.
+                
+        Returns:
+            int: Latency in milliseconds, or -1 if failed.
+        """
+        import signal
+        
+        # Define timeout handler
+        def timeout_handler(signum, frame):
+            raise TimeoutError("Connection test timed out")
+            
+        latency = ctypes.c_int()
+        
+        # Set timeout only on platforms that support signal.SIGALRM (not Windows)
+        if platform.system() != "Windows" and hasattr(signal, 'SIGALRM'):
+            old_handler = signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(timeout)
+            
+        try:
+            result = self.lib.test_config_connection(
+                config.encode('utf-8'), 
+                ctypes.byref(latency), 
+                self.http_port, 
+                self.socks_port
+            )
+            if result != 0:
+                return -1
+            return latency.value
+        except Exception:
+            return -1
+        finally:
+            # Restore old signal handler
+            if platform.system() != "Windows" and hasattr(signal, 'SIGALRM'):
+                signal.alarm(0)
+                signal.signal(signal.SIGALRM, old_handler)
