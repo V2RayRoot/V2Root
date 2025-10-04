@@ -6,6 +6,9 @@ import platform
 import subprocess
 from colorama import init, Fore, Style
 
+# Import our custom logger
+from .logger import logger, log_function_call, configure_logger
+
 init(autoreset=True)
 
 class V2ROOT:
@@ -17,6 +20,7 @@ class V2ROOT:
     managing proxy settings, testing multiple configurations for connectivity and latency,
     and pinging servers to measure latency.
     """
+    @log_function_call(log_args=True)
     def __init__(self, http_port=2300, socks_port=2301):
         """
         Initialize the V2ROOT instance with specified HTTP and SOCKS ports.
@@ -88,8 +92,11 @@ class V2ROOT:
 
         try:
             self.lib = ctypes.CDLL(lib_path)
+            logger.debug(f"Successfully loaded library: {lib_path}")
         except OSError as e:
-            raise OSError(f"Failed to load {lib_name}: {str(e)}. Ensure all dependencies (libjansson-4.dll, libssl-1_1-x64.dll, libcrypto-1_1-x64.dll) are in {os.path.dirname(lib_path)}")
+            error_msg = f"Failed to load {lib_name}: {str(e)}. Ensure all dependencies are in {os.path.dirname(lib_path)}"
+            logger.error(error_msg)
+            raise OSError(error_msg)
 
         self.http_port = http_port
         self.socks_port = socks_port
@@ -112,6 +119,7 @@ class V2ROOT:
         self.lib.ping_server.restype = ctypes.c_int
 
         self._init_v2ray('config.json', v2ray_path)
+        logger.info("V2ROOT initialized successfully")
         print(f"{Fore.GREEN}V2ROOT initialized successfully{Style.RESET_ALL}")
 
     def _explain_error_code(self, error_code, context=""):
@@ -125,7 +133,9 @@ class V2ROOT:
         Returns:
             str: A colorful, concise error message with simple fix instructions and a documentation link.
         """
-
+        # Log the error for debugging
+        logger.error(f"Error code {error_code} encountered during: {context}")
+        
         error_codes = {
             -1: (
                 f"{Fore.RED}General Error{Fore.RESET}",
@@ -231,6 +241,7 @@ class V2ROOT:
 
         return error_message
     
+    @log_function_call
     def _init_v2ray(self, config_file, v2ray_path):
         """
         Initialize the V2Ray core with a configuration file and V2Ray executable path.
@@ -242,14 +253,20 @@ class V2ROOT:
         Raises:
             Exception: If initialization fails with a non-zero error code.
         """
+        logger.debug(f"Initializing V2Ray with config: {config_file}, path: {v2ray_path}")
         result = self.lib.init_v2ray(config_file.encode('utf-8'), v2ray_path.encode('utf-8'))
         if result != 0:
             error_message = self._explain_error_code(result, "Failed to initialize V2ROOT")
+            logger.error(f"V2Ray initialization failed with code {result}")
             if result == -1 and self.is_linux:
-                error_message += f"\nThis may be due to V2Ray not being properly installed or configured at {v2ray_path}. Please ensure V2Ray is installed (e.g., sudo apt install v2ray) and the executable is functional."
+                extra_info = f"This may be due to V2Ray not being properly installed or configured at {v2ray_path}."
+                logger.error(extra_info)
+                error_message += f"\n{extra_info} Please ensure V2Ray is installed and the executable is functional."
             raise Exception(error_message)
+        logger.info("V2Ray core initialized successfully")
         self.is_initialized = True 
         
+    @log_function_call
     def reset_network_proxy(self):
         """
         Reset system network proxy settings.
@@ -257,15 +274,22 @@ class V2ROOT:
         Raises:
             Exception: If resetting the proxy settings fails.
         """
+        logger.info("Resetting network proxy settings")
         try:
             self.stop()
-        except:
-            pass
+        except Exception as e:
+            logger.warning(f"Failed to stop V2Ray before resetting proxy: {str(e)}")
+            
         result = self.lib.reset_network_proxy()
         if result != 0:
-            raise Exception(self._explain_error_code(result, "Failed to reset network proxy"))
+            error_msg = self._explain_error_code(result, "Failed to reset network proxy")
+            logger.error(f"Failed to reset network proxy: code {result}")
+            raise Exception(error_msg)
+        
+        logger.info("Network settings reset successfully")
         print(f"{Fore.GREEN}Network settings reset successfully!{Style.RESET_ALL}")
 
+    @log_function_call
     def set_config_string(self, config_str):
         """
         Parse and set a V2Ray configuration string.
@@ -283,9 +307,17 @@ class V2ROOT:
         if not config_str.strip():
             raise ValueError("config_str cannot be empty")
 
+        # Log truncated config string (for privacy)
+        safe_config = config_str[:20] + "..." if len(config_str) > 20 else config_str
+        logger.info(f"Setting configuration: {safe_config}")
+        
         result = self.lib.parse_config_string(config_str.encode('utf-8'), self.http_port, self.socks_port)
         if result != 0:
-            raise Exception(self._explain_error_code(result, "Failed to parse config string"))
+            error_msg = self._explain_error_code(result, "Failed to parse config string")
+            logger.error(f"Failed to parse config string: code {result}")
+            raise Exception(error_msg)
+        
+        logger.info("Configuration applied successfully")
         print(f"{Fore.GREEN}Connection OK{Style.RESET_ALL}")
 
     def start(self):
@@ -301,10 +333,14 @@ class V2ROOT:
         Raises:
             Exception: If starting the V2Ray service fails.
         """
-
+        logger.info(f"Starting V2Ray (HTTP port: {self.http_port}, SOCKS port: {self.socks_port})")
         pid = self.lib.start_v2ray(self.http_port, self.socks_port)
         if pid < 0:
-            raise Exception(self._explain_error_code(pid, "Failed to start V2Ray"))
+            error_msg = self._explain_error_code(pid, "Failed to start V2Ray")
+            logger.error(f"Failed to start V2Ray: code {pid}")
+            raise Exception(error_msg)
+        
+        logger.info(f"V2Ray started successfully with PID: {pid}")
         print(f"{Fore.GREEN}V2Ray started successfully with PID: {pid}{Style.RESET_ALL}")
 
         if self.is_linux:
@@ -505,3 +541,212 @@ class V2ROOT:
 
         print(f"{Fore.GREEN}Test completed. Valid configs saved to {output_file}{Style.RESET_ALL}")
         return best_config
+    
+    def save_config(self, config_str, name=None):
+        """
+        Save a V2Ray configuration string to the configs directory.
+        
+        Args:
+            config_str (str): V2Ray configuration string to save.
+            name (str, optional): Name to save the config as. If None, uses a timestamp.
+                
+        Returns:
+            str: Path to the saved configuration file.
+            
+        Raises:
+            TypeError: If config_str is not a string.
+            ValueError: If config_str is empty or invalid.
+        """
+        if not isinstance(config_str, str):
+            raise TypeError("config_str must be a string")
+        if not config_str.strip():
+            raise ValueError("config_str cannot be empty")
+            
+        # Validate config string before saving
+        try:
+            latency = ctypes.c_int()
+            result = self.lib.test_config_connection(config_str.encode('utf-8'), 
+                                                    ctypes.byref(latency), 
+                                                    self.http_port, 
+                                                    self.socks_port)
+            if result != 0:
+                raise ValueError(f"Invalid configuration: {self._explain_error_code(result)}")
+        except Exception as e:
+            raise ValueError(f"Failed to validate configuration: {str(e)}")
+            
+        # Create configs directory if it doesn't exist
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        configs_dir = os.path.join(script_dir, "configs")
+        os.makedirs(configs_dir, exist_ok=True)
+        
+        # Generate filename
+        if name is None:
+            import time
+            name = f"config_{int(time.time())}"
+        if not name.endswith('.txt'):
+            name += '.txt'
+            
+        # Save config
+        file_path = os.path.join(configs_dir, name)
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(config_str)
+            
+        print(f"{Fore.GREEN}Configuration saved to {file_path}{Style.RESET_ALL}")
+        return file_path
+        
+    def load_saved_config(self, name):
+        """
+        Load a saved V2Ray configuration by name.
+        
+        Args:
+            name (str): Name of the configuration file to load.
+            
+        Returns:
+            str: The loaded configuration string.
+            
+        Raises:
+            FileNotFoundError: If the configuration file doesn't exist.
+        """
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        configs_dir = os.path.join(script_dir, "configs")
+        
+        if not name.endswith('.txt'):
+            name += '.txt'
+            
+        file_path = os.path.join(configs_dir, name)
+        
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Configuration file {name} not found")
+            
+        with open(file_path, 'r', encoding='utf-8') as f:
+            config = f.read().strip()
+            
+        print(f"{Fore.GREEN}Configuration loaded from {file_path}{Style.RESET_ALL}")
+        return config
+    
+    def list_saved_configs(self):
+        """
+        List all saved V2Ray configurations.
+        
+        Returns:
+            list: A list of configuration filenames.
+        """
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        configs_dir = os.path.join(script_dir, "configs")
+        os.makedirs(configs_dir, exist_ok=True)
+        
+        configs = [f for f in os.listdir(configs_dir) if f.endswith('.txt')]
+        
+        if not configs:
+            print(f"{Fore.YELLOW}No saved configurations found{Style.RESET_ALL}")
+        else:
+            print(f"{Fore.GREEN}Found {len(configs)} saved configurations:{Style.RESET_ALL}")
+            for i, config in enumerate(configs, 1):
+                print(f"{Fore.CYAN}{i}. {config}{Style.RESET_ALL}")
+                
+        return configs
+        
+    def batch_test(self, config_list, timeout=10, parallel=False):
+        """
+        Test multiple configurations with improved feedback and optional parallel processing.
+        
+        Args:
+            config_list (list): List of configuration strings to test.
+            timeout (int, optional): Maximum time in seconds to test each config. Defaults to 10.
+            parallel (bool, optional): Whether to test configs in parallel. Defaults to False.
+                
+        Returns:
+            list: List of tuples (config, latency) for successful configurations, sorted by latency.
+        """
+        if not isinstance(config_list, list):
+            raise TypeError("config_list must be a list")
+        if not config_list:
+            raise ValueError("config_list cannot be empty")
+            
+        results = []
+        total = len(config_list)
+        
+        if parallel and platform.system() != "Windows":  # Parallel processing not recommended on Windows due to proxy issues
+            try:
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor(max_workers=min(5, total)) as executor:
+                    futures = {executor.submit(self._test_single_config, config, timeout): config for config in config_list}
+                    
+                    for i, future in enumerate(concurrent.futures.as_completed(futures), 1):
+                        config = futures[future]
+                        try:
+                            latency = future.result()
+                            if latency > 0:
+                                results.append((config, latency))
+                                print(f"{Fore.GREEN}[{i}/{total}] Config OK, Latency: {latency}ms{Style.RESET_ALL}")
+                            else:
+                                print(f"{Fore.RED}[{i}/{total}] Config failed{Style.RESET_ALL}")
+                        except Exception as e:
+                            print(f"{Fore.RED}[{i}/{total}] Error testing config: {str(e)}{Style.RESET_ALL}")
+            except ImportError:
+                print(f"{Fore.YELLOW}Parallel testing requires concurrent.futures module. Falling back to sequential testing.{Style.RESET_ALL}")
+                parallel = False
+                
+        if not parallel:
+            for i, config in enumerate(config_list, 1):
+                print(f"{Fore.CYAN}Testing config {i}/{total}{Style.RESET_ALL}")
+                try:
+                    latency = self._test_single_config(config, timeout)
+                    if latency > 0:
+                        results.append((config, latency))
+                        print(f"{Fore.GREEN}Config OK, Latency: {latency}ms{Style.RESET_ALL}")
+                    else:
+                        print(f"{Fore.RED}Config failed{Style.RESET_ALL}")
+                except Exception as e:
+                    print(f"{Fore.RED}Error testing config: {str(e)}{Style.RESET_ALL}")
+                    
+        # Sort results by latency
+        results.sort(key=lambda x: x[1])
+        
+        print(f"{Fore.GREEN}Testing completed. {len(results)}/{total} configs successful.{Style.RESET_ALL}")
+        if results:
+            print(f"{Fore.GREEN}Best config has latency {results[0][1]}ms{Style.RESET_ALL}")
+            
+        return results
+        
+    def _test_single_config(self, config, timeout=10):
+        """
+        Test a single configuration with timeout.
+        
+        Args:
+            config (str): Configuration string to test.
+            timeout (int, optional): Maximum time in seconds to test. Defaults to 10.
+                
+        Returns:
+            int: Latency in milliseconds, or -1 if failed.
+        """
+        import signal
+        
+        # Define timeout handler
+        def timeout_handler(signum, frame):
+            raise TimeoutError("Connection test timed out")
+            
+        latency = ctypes.c_int()
+        
+        # Set timeout only on platforms that support signal.SIGALRM (not Windows)
+        if platform.system() != "Windows" and hasattr(signal, 'SIGALRM'):
+            old_handler = signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(timeout)
+            
+        try:
+            result = self.lib.test_config_connection(
+                config.encode('utf-8'), 
+                ctypes.byref(latency), 
+                self.http_port, 
+                self.socks_port
+            )
+            if result != 0:
+                return -1
+            return latency.value
+        except Exception:
+            return -1
+        finally:
+            # Restore old signal handler
+            if platform.system() != "Windows" and hasattr(signal, 'SIGALRM'):
+                signal.alarm(0)
+                signal.signal(signal.SIGALRM, old_handler)

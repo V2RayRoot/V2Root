@@ -1,40 +1,41 @@
 # v2root/__init__.py
 """
-V2Root - A Python package to manage v2ray with native extensions.
+V2Root - A Python library for managing, using, and testing V2Ray configurations.
 
-This package provides a Python interface to manage v2ray proxy software, enabling users to:
-- Load and apply V2Ray configurations
-- Start and stop V2Ray processes
-- Test connection latency
-- Ping server (DNS)
-- Parse VLESS, VMess, and Shadowsocks configuration strings into V2Ray JSON config files
-- Manage system proxy settings for HTTP and SOCKS protocols
-- Support for advanced V2Ray features like TCP, HTTP/2, WebSocket, mKCP, QUIC, gRPC, TLS, and Reality
+This library provides a comprehensive interface for working with V2Ray proxy configurations, enabling users to:
+- Parse and validate V2Ray configuration strings (VLESS, VMess, Shadowsocks)
+- Test connections and measure latency
+- Batch test multiple configurations
+- Save and load configurations
+- Start and stop V2Ray proxy services
+- Manage system proxy settings
+- Handle subscription-based configurations
 
-Developed in Python and C for cross-platform compatibility, tested on Windows 10/11 and Linux.
+Developed in Python with C extensions for high performance, V2Root supports:
+- Cross-platform compatibility (Windows and Linux)
+- Multiple protocol support (TCP, HTTP/2, WebSocket, mKCP, QUIC, gRPC)
+- Security features (TLS, Reality)
+- Configuration management
+- Subscription management
 
 Authors: Project V2Root, Sepehr0Day
 Version: 1.1.2
-Created: April 2025
 License: MIT License
 Repository: https://github.com/V2RayRoot/V2Root
-Documentation: https://v2root.readthedocs.io
-Contact: sphrz2324@gmail.com
-
-Dependencies:
-- Python 3.6+
-- Windows 10/11 or Linux
-- ctypes (standard library)
-- urllib.request (standard library)
-- colorama (for colored terminal output)
 """
 
 from .v2root import V2ROOT
+from .logger import configure_logger, get_logger, debug, info, warning, error, critical
+from .subscription import SubscriptionManager, Subscription, SubscriptionError, FetchError, ParseError
 
-__all__ = ['V2ROOT']
+__all__ = [
+    'V2ROOT', 
+    'configure_logger', 'get_logger', 'debug', 'info', 'warning', 'error', 'critical',
+    'SubscriptionManager', 'Subscription', 'SubscriptionError', 'FetchError', 'ParseError'
+]
 __version__ = '1.1.2'
 __author__ = 'Project V2Root, Sepehr0Day'
 __license__ = 'MIT'
 __email__ = 'sphrz2324@gmail.com'
 __url__ = 'https://github.com/V2RayRoot/V2Root'
-__description__ = 'A Python package to manage v2ray with native extensions'
+__description__ = 'A Python library for managing, using, and testing V2Ray configurations'
