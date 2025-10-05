@@ -310,7 +310,11 @@ EXPORT int start_v2ray_with_pid(int http_port, int socks_port, PID_TYPE* pid) {
         log_message("Failed to enable system proxy in Windows", __FILE__, __LINE__, 0, NULL);
         return -1;
     }
-    if (start_v2ray_process(v2ray_config_file, v2ray_executable_path, &v2ray_pid) != 0) {
+    int start_result = start_v2ray_process(v2ray_config_file, v2ray_executable_path, &v2ray_pid);
+    if (start_result == -2) {
+        log_message("Cannot start V2Ray - process already running", __FILE__, __LINE__, 0, NULL);
+        return -7;
+    } else if (start_result != 0) {
         log_message("Failed to start V2Ray process in Windows", __FILE__, __LINE__, 0, NULL);
         win_disable_system_proxy();
         return -1;

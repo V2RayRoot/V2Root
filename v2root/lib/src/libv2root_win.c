@@ -55,6 +55,30 @@ int win_start_v2ray_process(const char* config_file, const char* v2ray_path, DWO
         return -1;
     }
     
+    /* Check if a process is already running from registry */
+    DWORD existing_pid = load_pid_from_registry();
+    if (existing_pid > 0) {
+        /* Verify if the process is actually running */
+        HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, existing_pid);
+        if (hProcess != NULL) {
+            DWORD exitCode = 0;
+            if (GetExitCodeProcess(hProcess, &exitCode) && exitCode == STILL_ACTIVE) {
+                /* Process is still running - prevent starting a new one */
+                CloseHandle(hProcess);
+                char err_msg[256];
+                snprintf(err_msg, sizeof(err_msg), 
+                        "V2Ray process already running with PID: %lu. Stop it first before starting a new one.", 
+                        existing_pid);
+                log_message(err_msg, __FILE__, __LINE__, 0, NULL);
+                return -2; /* Special error code for "already running" */
+            }
+            CloseHandle(hProcess);
+        }
+        /* If we reach here, the PID was invalid or process terminated - clean up registry */
+        log_message("Cleaning up stale PID from registry", __FILE__, __LINE__, 0, NULL);
+        save_pid_to_registry(0);
+    }
+    
     STARTUPINFOA si;
     PROCESS_INFORMATION pi;
     

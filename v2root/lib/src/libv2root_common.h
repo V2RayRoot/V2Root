@@ -24,6 +24,7 @@
 #define V2ROOT_ERROR_CONFIG_MISSING -4
 #define V2ROOT_ERROR_PROCESS_START -5
 #define V2ROOT_ERROR_NETWORK -6
+#define V2ROOT_ERROR_ALREADY_RUNNING -7  /* Process already running */
 
 /* Log levels */
 #define LOG_LEVEL_DEBUG 0
