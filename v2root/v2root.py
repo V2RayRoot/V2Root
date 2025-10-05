@@ -308,6 +308,16 @@ class V2ROOT:
                 ],
                 "More: https://github.com/V2RayRoot/V2Root/blob/main/ExplainError/1.1.2/Error_-6.md"
             ),
+            -7:(
+                f"{Fore.RED}Process Already Running{Fore.RESET}",
+                "A V2Ray process is already running - cannot start a new one",
+                [
+                    f"Stop the existing V2Ray process first using {Fore.YELLOW}stop(){Fore.RESET}",
+                    f"Check Task Manager (Windows) or process list (Linux) for v2ray",
+                    f"Wait a few seconds and try again"
+                ],
+                "More: https://github.com/V2RayRoot/V2Root/blob/main/ExplainError/1.2.0/Error_-7.md"
+            )
         }
 
         error_info = error_codes.get(
@@ -437,14 +447,22 @@ class V2ROOT:
             Exception: If starting the V2Ray service fails.
         """
         logger.info(f"Starting V2Ray (HTTP port: {self.http_port}, SOCKS port: {self.socks_port})")
-        pid = self.lib.start_v2ray(self.http_port, self.socks_port)
-        if pid < 0:
-            error_msg = self._explain_error_code(pid, "Failed to start V2Ray")
-            logger.error(f"Failed to start V2Ray: code {pid}")
-            raise Exception(error_msg)
+        result = self.lib.start_v2ray(self.http_port, self.socks_port)
         
-        logger.info(f"V2Ray started successfully with PID: {pid}")
-        print(f"{Fore.GREEN}V2Ray started successfully with PID: {pid}{Style.RESET_ALL}")
+        if result == -7:
+            error_msg = self._explain_error_code(-7, "Failed to start V2Ray - already running")
+            logger.error(f"V2Ray already running: code {result}")
+            print(error_msg)
+            raise Exception(error_msg)
+        elif result < 0:
+            error_msg = self._explain_error_code(result, "Failed to start V2Ray")
+            logger.error(f"Failed to start V2Ray: code {result}")
+            print(error_msg)
+            raise Exception(error_msg)
+        else:
+            logger.info(f"V2Ray started successfully with PID: {result}")
+            print(f"✅ V2Ray started successfully (PID: {result})")
+            return result
 
         if self.is_linux:
             print(f"{Fore.YELLOW}============================================================{Style.RESET_ALL}")
@@ -627,7 +645,7 @@ class V2ROOT:
         Raises:
             TypeError: If config_str is not a string or attempts is not int.
             ValueError: If config_str is empty or attempts < 1.
-            Exception: If V2Ray is not initialized or probe fails.
+            Exception: If V2Ray is not properly initialized or probe fails.
         """
         if not isinstance(config_str, str):
             raise TypeError("config_str must be a string")
