@@ -792,12 +792,222 @@ Follow these steps:
 
         cat v2root.log
 
+Error -7: Process Already Running
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**What is Error Code -7?**
+
+Error Code -7 is a "Process Already Running" error in V2Root, meaning you attempted to start a new V2Ray connection while another V2Ray process is still active. V2Root prevents multiple instances from running simultaneously to avoid conflicts with network ports, system resources, and proxy settings.
+
+**Why Does This Happen?**
+
+This error occurs when:
+- You previously started V2Ray and forgot to stop it before starting a new connection.
+- A previous V2Ray process didn't terminate properly (e.g., due to a crash or forceful program closure).
+- The process ID (PID) is stored in the system registry (Windows) but the actual process might still be running in the background.
+- You're running multiple scripts or programs that try to start V2Ray simultaneously.
+- On Windows, the registry contains a PID from a previous session that wasn't cleaned up.
+
+**How to Fix It**
+
+Follow these detailed steps to resolve the issue:
+
+1. **Stop the Existing V2Ray Process Using V2Root**:
+
+   - The safest way is to use V2Root's built-in stop function in your script:
+
+     .. code-block:: python
+
+        from v2root import V2ROOT
+
+        v2root = V2ROOT()
+        v2root.stop()
+
+   - This will properly terminate the V2Ray process and clean up proxy settings.
+
+2. **Check for Running V2Ray Processes**:
+
+   - **On Windows**:
+
+     - Open Task Manager (press ``Ctrl+Shift+Esc``).
+     - Look for processes named ``v2ray.exe`` or ``v2ray``.
+     - Right-click and select "End Task" to terminate them.
+     - Alternatively, use PowerShell:
+
+       .. code-block:: powershell
+
+          tasklist | findstr v2ray
+          taskkill /IM v2ray.exe /F
+
+   - **On Linux**:
+
+     - Open a terminal and check for V2Ray processes:
+
+       .. code-block:: bash
+
+          ps aux | grep v2ray
+
+     - Kill the process using its PID (replace ``12345`` with the actual PID):
+
+       .. code-block:: bash
+
+          sudo kill -9 12345
+
+     - Or kill all V2Ray processes:
+
+       .. code-block:: bash
+
+          sudo pkill v2ray
+
+3. **Clear Registry Data (Windows Only)**:
+
+   - V2Root stores the PID in the Windows Registry under ``HKEY_CURRENT_USER\Software\V2ROOT``.
+   - Open Registry Editor:
+
+     - Press ``Win+R``, type ``regedit``, and press Enter.
+     - Navigate to: ``HKEY_CURRENT_USER\Software\V2ROOT``
+     - Look for a value named ``V2RayPID``.
+     - Right-click and delete it.
+
+   - Alternatively, use PowerShell:
+
+     .. code-block:: powershell
+
+        Remove-ItemProperty -Path "HKCU:\Software\V2ROOT" -Name "V2RayPID" -ErrorAction SilentlyContinue
+
+4. **Wait a Few Seconds**:
+
+   - After stopping the process, wait 5-10 seconds before starting V2Ray again.
+   - This ensures the process fully terminates and releases network resources.
+
+5. **Restart Your Script**:
+
+   - After stopping the existing process, run your script again:
+
+     .. code-block:: bash
+
+        python v2root.py
+
+   - V2Root should now start successfully without the -7 error.
+
+6. **Check for Port Conflicts**:
+
+   - The previous V2Ray process might still be holding ports 2300 (HTTP) or 2301 (SOCKS).
+   - **On Windows**:
+
+     .. code-block:: powershell
+
+        netstat -an | findstr 2300
+        netstat -an | findstr 2301
+
+     - If ports are in use, find and terminate the program using Task Manager.
+
+   - **On Linux**:
+
+     .. code-block:: bash
+
+        netstat -tuln | grep 2300
+        netstat -tuln | grep 2301
+
+     - If ports are occupied, find the process:
+
+       .. code-block:: bash
+
+          sudo lsof -i :2300
+          sudo kill -9 <PID>
+
+7. **Inspect the Log File**:
+
+   - Open ``v2root.log`` in the same folder as your script.
+   - Look for entries related to process management:
+
+     - "V2Ray process already running with PID: ..." (note the PID and terminate it).
+     - "Failed to stop V2Ray process" (indicates the process is stuck).
+
+   - View the log:
+
+     .. code-block:: bash
+
+        cat v2root.log
+
+8. **Restart Your Computer (Last Resort)**:
+
+   - If the process is stuck and won't terminate, restart your computer.
+   - This will forcefully close all processes and clear any registry or system locks.
+
+**How to Avoid This Error in the Future**
+
+To prevent Error -7 from happening again:
+
+1. **Always Stop V2Ray Before Starting a New Connection**:
+
+   - Add a stop command before starting:
+
+     .. code-block:: python
+
+        from v2root import V2ROOT
+
+        v2root = V2ROOT()
+        v2root.stop()  # Stop any existing process
+        v2root.set_config_string(config_str)
+        v2root.start()  # Start with new configuration
+
+2. **Use Try-Finally Blocks**:
+
+   - Ensure V2Ray stops even if your script crashes:
+
+     .. code-block:: python
+
+        from v2root import V2ROOT
+
+        v2root = V2ROOT()
+        try:
+            v2root.set_config_string(config_str)
+            v2root.start()
+            # Your code here
+        finally:
+            v2root.stop()  # Always stop when done
+
+3. **Check Process Status Before Starting**:
+
+   - Verify no V2Ray process is running before starting a new one:
+
+     .. code-block:: python
+
+        import subprocess
+
+        # Check for existing process
+        result = subprocess.run(['tasklist'], capture_output=True, text=True)  # Windows
+        # result = subprocess.run(['ps', 'aux'], capture_output=True, text=True)  # Linux
+
+        if 'v2ray' in result.stdout.lower():
+            print("V2Ray is already running. Stopping it first...")
+            v2root.stop()
+
+4. **Don't Run Multiple Scripts Simultaneously**:
+
+   - Avoid running multiple Python scripts that use V2Root at the same time.
+   - If you need to test multiple configurations, stop V2Ray between tests.
+
+**Still Stuck?**
+
+If you've tried all the steps and the issue persists, we're here to help! Contact us with the following details:
+
+- The script file you're running (e.g., ``v2root.py``).
+- The ``v2root.log`` file from the same folder.
+- Your operating system (Windows or Linux).
+- A description of when the error started (e.g., "after a crash" or "when running multiple scripts").
+- Report the issue on:
+
+  - Telegram: @Sepehr0Day
+  - GitHub: https://github.com/V2RayRoot/V2Root/issues
+
 Unknown Error Codes
 ~~~~~~~~~~~~~~~~~~~
 
 **What are Unknown Error Codes?**
 
-Unknown Error Codes in V2Root are any errors not explicitly identified as -1 through -6. These are unexpected issues that may arise due to bugs, system incompatibilities, or unique configurations not handled by V2Root's error reporting.
+Unknown Error Codes in V2Root are any errors not explicitly identified as -1 through -7. These are unexpected issues that may arise due to bugs, system incompatibilities, or unique configurations not handled by V2Root's error reporting.
 
 **Why Does This Happen?**
 
@@ -817,7 +1027,7 @@ Follow these steps to troubleshoot:
    - Open ``v2root.log`` in the same folder as ``v2root.py`` with a text editor.
    - Look for detailed error messages, such as:
 
-     - Specific error codes or messages not listed as -1 to -6.
+     - Specific error codes or messages not listed as -1 to -7.
      - Stack traces or system errors (e.g., memory issues, library failures).
      - Messages about configuration or network failures.
 
