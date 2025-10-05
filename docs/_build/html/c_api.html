@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C API Usage &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="API Reference" href="api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscription.html">Subscription Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_options.html">Supported Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">C API Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-the-c-api">Overview of the C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-functions">API Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-using-the-c-api-in-a-c-program">Example: Using the C API in a C Program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-api-in-other-languages">Using the API in Other Languages</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">C API Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/c_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-api-usage">
+<h1>C API Usage<a class="headerlink" href="#c-api-usage" title="Link to this heading"></a></h1>
+<p>This section explains how to use the V2ROOT C API in other projects by leveraging the shared libraries (<code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> on Linux). These libraries allow developers to integrate V2ROOT’s functionality into applications written in languages like C, C++, or any language that supports loading shared libraries (e.g., Python via <code class="docutils literal notranslate"><span class="pre">ctypes</span></code>, Rust via FFI).</p>
+<section id="overview-of-the-c-api">
+<h2>Overview of the C API<a class="headerlink" href="#overview-of-the-c-api" title="Link to this heading"></a></h2>
+<p>The V2ROOT C API provides a set of functions to manage V2Ray proxy operations, including initialization, starting/stopping the proxy, testing configurations, and pinging servers.</p>
+<p>The shared libraries are built from the C codebase and expose the following functions. Each function returns an integer: 0 for success or a negative error code for failure (refer to the <a class="reference internal" href="api.html#api"><span class="std std-ref">API Reference</span></a> section for error code details).</p>
+</section>
+<section id="api-functions">
+<h2>API Functions<a class="headerlink" href="#api-functions" title="Link to this heading"></a></h2>
+<p>Below is a detailed list of the available functions, their signatures, inputs, and outputs:</p>
+<ul>
+<li><p><strong>init_v2ray(config_file: char*, v2ray_path: char*) -&gt; int</strong>:</p>
+<p>Initializes the V2Ray core with a configuration file and the path to the V2Ray executable.</p>
+<ul class="simple">
+<li><p><strong>Inputs</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_file</span></code>: A null-terminated string specifying the path to the V2Ray configuration file (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;config.json&quot;</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v2ray_path</span></code>: A null-terminated string specifying the path to the V2Ray executable (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;v2ray&quot;</span></code> on Linux or <code class="docutils literal notranslate"><span class="pre">&quot;v2ray.exe&quot;</span></code> on Windows).</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul>
+<li><p>Returns 0 on success, or a negative error code on failure (e.g., -1 for general failure, -5 for initialization error).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>reset_network_proxy() -&gt; int</strong>:</p>
+<p>Resets the system network proxy settings.</p>
+<ul>
+<li><p><strong>Inputs</strong>:</p>
+<p>None.</p>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul class="simple">
+<li><p>Returns 0 on success, or a negative error code on failure (e.g., -6 for proxy setting error).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>parse_config_string(config_str: char*, http_port: int, socks_port: int) -&gt; int</strong>:</p>
+<p>Parses a V2Ray configuration string (e.g., VLESS or VMess) and sets up the proxy with the specified ports.</p>
+<ul class="simple">
+<li><p><strong>Inputs</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_str</span></code>: A null-terminated string containing the V2Ray configuration (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;vless://user-id&#64;server:443?security=tls&amp;type=tcp#MyVLESS&quot;</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http_port</span></code>: The HTTP proxy port (e.g., 2300).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">socks_port</span></code>: The SOCKS proxy port (e.g., 2301).</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul>
+<li><p>Returns 0 on success, or a negative error code on failure (e.g., -3 for invalid configuration).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>start_v2ray(http_port: int, socks_port: int) -&gt; int</strong>:</p>
+<p>Starts the V2Ray proxy service on the specified ports.</p>
+<ul class="simple">
+<li><p><strong>Inputs</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">http_port</span></code>: The HTTP proxy port (e.g., 2300).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">socks_port</span></code>: The SOCKS proxy port (e.g., 2301).</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul>
+<li><p>Returns the process ID (PID) of the V2Ray process on success, or a negative error code on failure (e.g., -2 for service operation failure).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>stop_v2ray() -&gt; int</strong>:</p>
+<p>Stops the V2Ray proxy service.</p>
+<ul>
+<li><p><strong>Inputs</strong>:</p>
+<p>None.</p>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul class="simple">
+<li><p>Returns 0 on success, or a negative error code on failure (e.g., -2 for service operation failure).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>test_config_connection(config_str: char*, latency: int*, http_port: int, socks_port: int) -&gt; int</strong>:</p>
+<p>Tests the connectivity and latency of a V2Ray configuration.</p>
+<ul class="simple">
+<li><p><strong>Inputs</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_str</span></code>: A null-terminated string containing the V2Ray configuration (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;vless://user-id&#64;server:443?security=tls&amp;type=tcp#MyVLESS&quot;</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latency</span></code>: A pointer to an integer where the latency (in milliseconds) will be stored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http_port</span></code>: The HTTP proxy port (e.g., 2300).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">socks_port</span></code>: The SOCKS proxy port (e.g., 2301).</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul>
+<li><p>Returns 0 on success, or a negative error code on failure (e.g., -4 for network error). The latency value is stored in the <code class="docutils literal notranslate"><span class="pre">latency</span></code> pointer on success.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ping_server(address: char*, port: int) -&gt; int</strong>:</p>
+<p>Pings a server to measure latency.</p>
+<ul class="simple">
+<li><p><strong>Inputs</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">address</span></code>: A null-terminated string specifying the server address (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;example.com&quot;</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code>: The port to connect to (e.g., 443).</p></li>
+</ul>
+</li>
+<li><p><strong>Output</strong>:</p>
+<ul>
+<li><p>Returns the latency in milliseconds on success, or a negative error code on failure (e.g., -4 for network error).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="example-using-the-c-api-in-a-c-program">
+<h2>Example: Using the C API in a C Program<a class="headerlink" href="#example-using-the-c-api-in-a-c-program" title="Link to this heading"></a></h2>
+<p>Below is an example of how to use the V2ROOT C API in a C program on Linux. The process is similar on Windows, with adjustments for loading the DLL (using <code class="docutils literal notranslate"><span class="pre">LoadLibrary</span></code> and <code class="docutils literal notranslate"><span class="pre">GetProcAddress</span></code> instead of <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> and <code class="docutils literal notranslate"><span class="pre">dlsym</span></code>).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dlfcn.h&gt;</span><span class="c1"> // For Linux (use windows.h on Windows)</span>
+
+<span class="c1">// Function pointer types for the API functions</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">init_v2ray_t</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">parse_config_string_t</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">start_v2ray_t</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">test_config_connection_t</span><span class="p">)(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">stop_v2ray_t</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Load the shared library</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;/path/to/libv2root.so&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">RTLD_LAZY</span><span class="p">);</span><span class="w"> </span><span class="c1">// On Windows: LoadLibrary(&quot;libv2root.dll&quot;)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">lib</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to load library: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dlerror</span><span class="p">());</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Load the functions</span>
+<span class="w">    </span><span class="n">init_v2ray_t</span><span class="w"> </span><span class="n">init_v2ray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">init_v2ray_t</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;init_v2ray&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// On Windows: GetProcAddress</span>
+<span class="w">    </span><span class="n">parse_config_string_t</span><span class="w"> </span><span class="n">parse_config_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">parse_config_string_t</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;parse_config_string&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">start_v2ray_t</span><span class="w"> </span><span class="n">start_v2ray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">start_v2ray_t</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;start_v2ray&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">test_config_connection_t</span><span class="w"> </span><span class="n">test_config_connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">test_config_connection_t</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test_config_connection&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">stop_v2ray_t</span><span class="w"> </span><span class="n">stop_v2ray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">stop_v2ray_t</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;stop_v2ray&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">init_v2ray</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">parse_config_string</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">start_v2ray</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">test_config_connection</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">stop_v2ray</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to load functions: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dlerror</span><span class="p">());</span>
+<span class="w">        </span><span class="n">dlclose</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Initialize V2Ray</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_v2ray</span><span class="p">(</span><span class="s">&quot;config.json&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path/to/v2ray&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to initialize V2Ray: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">        </span><span class="n">dlclose</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;V2Ray initialized successfully!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Parse a configuration string</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;vless://user-id@server:443?security=tls&amp;type=tcp#MyVLESS&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_config_string</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="mi">2300</span><span class="p">,</span><span class="w"> </span><span class="mi">2301</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to parse config: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">        </span><span class="n">dlclose</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Configuration parsed successfully!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Start the V2Ray proxy</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start_v2ray</span><span class="p">(</span><span class="mi">2300</span><span class="p">,</span><span class="w"> </span><span class="mi">2301</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to start V2Ray: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">);</span>
+<span class="w">        </span><span class="n">dlclose</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;V2Ray started with PID: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Test the configuration</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">latency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_config_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">latency</span><span class="p">,</span><span class="w"> </span><span class="mi">2300</span><span class="p">,</span><span class="w"> </span><span class="mi">2301</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Connection test failed: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Connection test successful, latency: %d ms</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">latency</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Stop the V2Ray proxy</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stop_v2ray</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to stop V2Ray: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;V2Ray stopped successfully!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Clean up</span>
+<span class="w">    </span><span class="n">dlclose</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<ul>
+<li><p><strong>Windows Adaptation</strong>:</p>
+<p>On Windows, replace <code class="docutils literal notranslate"><span class="pre">dlopen</span></code> with <code class="docutils literal notranslate"><span class="pre">LoadLibrary</span></code> and <code class="docutils literal notranslate"><span class="pre">dlsym</span></code> with <code class="docutils literal notranslate"><span class="pre">GetProcAddress</span></code>. For example:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;windows.h&gt;</span>
+
+<span class="n">HINSTANCE</span><span class="w"> </span><span class="n">lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoadLibrary</span><span class="p">(</span><span class="s">&quot;libv2root.dll&quot;</span><span class="p">);</span>
+<span class="n">init_v2ray_t</span><span class="w"> </span><span class="n">init_v2ray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">init_v2ray_t</span><span class="p">)</span><span class="n">GetProcAddress</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;init_v2ray&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Error Handling</strong>:</p>
+<p>Always check the return values of the functions. Negative values indicate errors, which can be interpreted using the error codes documented in the <a class="reference internal" href="api.html#api"><span class="std std-ref">API Reference</span></a> section.</p>
+</li>
+<li><p><strong>Paths</strong>:</p>
+<p>Ensure the paths to <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> (or <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code>) and the V2Ray executable are correct for your system.</p>
+</li>
+<li><p><strong>Dependencies</strong>:</p>
+<p>The shared library depends on V2Ray and system libraries (e.g., <code class="docutils literal notranslate"><span class="pre">libjansson.so</span></code> on Linux). Ensure these dependencies are available.</p>
+</li>
+</ul>
+</section>
+<section id="using-the-api-in-other-languages">
+<h2>Using the API in Other Languages<a class="headerlink" href="#using-the-api-in-other-languages" title="Link to this heading"></a></h2>
+<p>The C API can be used in other languages that support foreign function interfaces (FFI):</p>
+<ul>
+<li><p><strong>Python</strong>:</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> module to load the shared library and call the functions, similar to how the <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> file interacts with the library.</p>
+</li>
+<li><p><strong>Rust</strong>:</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">libloading</span></code> crate or FFI bindings to load and call the functions.</p>
+</li>
+<li><p><strong>Go</strong>:</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">cgo</span></code> package to interface with the C API.</p>
+</li>
+</ul>
+<p>For detailed usage in these languages, refer to their respective FFI documentation, ensuring you handle the same inputs and outputs as described above.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

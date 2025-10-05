@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supported Configuration Options &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Logging System" href="logger.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscription.html">Subscription Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Supported Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vless-options">VLESS Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vmess-options">VMess Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shadowsocks-options">Shadowsocks Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-notes">Usage Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_api.html">C API Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Supported Configuration Options</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/supported_options.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="supported-configuration-options">
+<span id="supported-options"></span><h1>Supported Configuration Options<a class="headerlink" href="#supported-configuration-options" title="Link to this heading"></a></h1>
+<p>This section details all configuration options supported by the V2ROOT library for parsing VLESS, VMess, and Shadowsocks protocols. These options are derived from the parsing functions in the C library (<cite>libv2root</cite>).</p>
+<section id="vless-options">
+<h2>VLESS Options<a class="headerlink" href="#vless-options" title="Link to this heading"></a></h2>
+<p>The VLESS protocol supports a wide range of transport and security configurations:</p>
+<ul class="simple">
+<li><p><strong>Transport Protocols</strong>:
+- TCP
+- HTTP/2 (h2)
+- WebSocket (ws)
+- mKCP
+- QUIC
+- gRPC</p></li>
+<li><p><strong>Security Options</strong>:
+- None
+- TLS
+- Reality</p></li>
+<li><p><strong>Encryption</strong>:
+- None (default)</p></li>
+<li><p><strong>Flow Control</strong>:
+- Optional <cite>flow</cite> parameter for advanced routing (e.g., xtls-rprx-vision)</p></li>
+<li><p><strong>TCP Settings</strong>:
+- Custom header types: <cite>none</cite>, <cite>http</cite></p></li>
+<li><p><strong>HTTP/2 Settings</strong>:
+- <cite>path</cite>: URL path for HTTP/2 connections
+- <cite>host</cite>: Host header
+- <cite>headers</cite>: Custom HTTP headers (e.g., <cite>key=value</cite>)</p></li>
+<li><p><strong>WebSocket Settings</strong>:
+- <cite>path</cite>: WebSocket path
+- <cite>host</cite>: Host header</p></li>
+<li><p><strong>mKCP Settings</strong>:
+- <cite>headerType</cite>: Header type (e.g., <cite>none</cite>, <cite>srtp</cite>, <cite>utp</cite>)
+- <cite>seed</cite>: Seed for obfuscation
+- <cite>congestion</cite>: Congestion control (e.g., <cite>bbr</cite>)</p></li>
+<li><p><strong>QUIC Settings</strong>:
+- <cite>security</cite>: QUIC security mode
+- <cite>key</cite>: QUIC encryption key
+- <cite>headerType</cite>: Header type (e.g., <cite>none</cite>, <cite>srtp</cite>)</p></li>
+<li><p><strong>gRPC Settings</strong>:
+- <cite>serviceName</cite>: gRPC service name
+- <cite>multiMode</cite>: Enable/disable multi-mode (true/false)</p></li>
+<li><p><strong>TLS Settings</strong>:
+- <cite>sni</cite>: Server Name Indication
+- <cite>alpn</cite>: Application-Layer Protocol Negotiation (e.g., <cite>h2</cite>, <cite>http/1.1</cite>)
+- <cite>fingerprint</cite>: TLS fingerprint (e.g., <cite>chrome</cite>, <cite>firefox</cite>)</p></li>
+<li><p><strong>Reality Settings</strong>:
+- <cite>publicKey</cite>: Public key for Reality
+- <cite>shortIds</cite>: Short IDs for authentication
+- <cite>spiderX</cite>: SpiderX parameter
+- <cite>fingerprint</cite>: Reality fingerprint</p></li>
+<li><p><strong>Inbound Proxies</strong>:
+- HTTP proxy port (default: 10808)
+- SOCKS proxy port (default: 1080)</p></li>
+</ul>
+</section>
+<section id="vmess-options">
+<h2>VMess Options<a class="headerlink" href="#vmess-options" title="Link to this heading"></a></h2>
+<p>The VMess protocol supports similar transport options with additional encryption features:</p>
+<ul class="simple">
+<li><p><strong>Transport Protocols</strong>:
+- TCP
+- HTTP/2 (h2)
+- WebSocket (ws)
+- mKCP
+- QUIC
+- gRPC</p></li>
+<li><p><strong>Security Options</strong>:
+- None
+- TLS</p></li>
+<li><p><strong>Encryption Methods</strong>:
+- <cite>auto</cite> (default)
+- <cite>aes-128-gcm</cite>
+- <cite>chacha20-poly1305</cite>
+- <cite>none</cite></p></li>
+<li><p><strong>TCP Settings</strong>:
+- Custom header types: <cite>none</cite>, <cite>http</cite></p></li>
+<li><p><strong>HTTP/2 Settings</strong>:
+- <cite>path</cite>: URL path
+- <cite>host</cite>: Host header
+- <cite>headers</cite>: Custom HTTP headers</p></li>
+<li><p><strong>WebSocket Settings</strong>:
+- <cite>path</cite>: WebSocket path
+- <cite>host</cite>: Host header</p></li>
+<li><p><strong>mKCP Settings</strong>:
+- <cite>headerType</cite>: Header type
+- <cite>seed</cite>: Seed for obfuscation
+- <cite>congestion</cite>: Congestion control (e.g., <cite>bbr</cite>)</p></li>
+<li><p><strong>QUIC Settings</strong>:
+- <cite>security</cite>: QUIC security mode
+- <cite>key</cite>: QUIC encryption key
+- <cite>headerType</cite>: Header type</p></li>
+<li><p><strong>gRPC Settings</strong>:
+- <cite>serviceName</cite>: gRPC service name
+- <cite>multiMode</cite>: Enable/disable multi-mode</p></li>
+<li><p><strong>TLS Settings</strong>:
+- <cite>sni</cite>: Server Name Indication
+- <cite>alpn</cite>: Application-Layer Protocol Negotiation</p></li>
+<li><p><strong>Inbound Proxies</strong>:
+- HTTP proxy port (default: 10808)
+- SOCKS proxy port (default: 1080)</p></li>
+<li><p><strong>Additional Features</strong>:
+- <cite>alterId</cite>: Alter ID for backward compatibility (integer, default: 0)</p></li>
+</ul>
+</section>
+<section id="shadowsocks-options">
+<h2>Shadowsocks Options<a class="headerlink" href="#shadowsocks-options" title="Link to this heading"></a></h2>
+<p>The Shadowsocks protocol supports simpler configurations with plugin support:</p>
+<ul class="simple">
+<li><p><strong>Transport Protocols</strong>:
+- TCP (default)
+- UDP (via SOCKS settings)</p></li>
+<li><p><strong>Security Options</strong>:
+- None
+- TLS (optional, via <cite>security</cite> parameter)</p></li>
+<li><p><strong>Encryption Methods</strong>:
+- Configurable via <cite>method</cite> (e.g., <cite>aes-256-gcm</cite>, <cite>chacha20-ietf-poly1305</cite>)</p></li>
+<li><p><strong>Plugin Support</strong>:
+- <cite>plugin</cite>: Plugin name (e.g., <cite>v2ray-plugin</cite>, <cite>obfs</cite>)
+- <cite>plugin-opts</cite>: Plugin-specific options</p></li>
+<li><p><strong>Additional Settings</strong>:
+- <cite>password</cite>: Encryption password
+- <cite>ota</cite>: One-Time Authentication (true/false, default: false)
+- <cite>level</cite>: User level (integer, default: 0)
+- <cite>tag</cite>: Optional tag for routing
+- <cite>network</cite>: Network type (e.g., <cite>tcp</cite>, <cite>udp</cite>)</p></li>
+<li><p><strong>Inbound Proxies</strong>:
+- HTTP proxy port (default: 10808)
+- SOCKS proxy port (default: 1080)</p></li>
+</ul>
+</section>
+<section id="usage-notes">
+<h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>All protocols support configurable HTTP and SOCKS proxy ports, with defaults applied if invalid ports are provided.</p></li>
+<li><p>Ensure that the configuration strings (VLESS, VMess, Shadowsocks) are correctly formatted to avoid parsing errors.</p></li>
+<li><p>For detailed error handling, check the logs generated by the <cite>log_message</cite> function in the C library.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="logger.html" class="btn btn-neutral float-left" title="Logging System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

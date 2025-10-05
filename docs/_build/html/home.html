@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to V2ROOT Documentation! &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start Guide" href="quick_start.html" />
+    <link rel="prev" title="V2ROOT Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Home</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-in-version-1-2-0">New in Version 1.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-the-project">About the Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-goals">Project Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-languages">Development Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-information">Project Information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscription.html">Subscription Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_options.html">Supported Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_api.html">C API Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to V2ROOT Documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/home.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-v2root-documentation">
+<h1>Welcome to V2ROOT Documentation!<a class="headerlink" href="#welcome-to-v2root-documentation" title="Link to this heading"></a></h1>
+<p>V2ROOT is a Python library designed to manage V2Ray proxy operations on Windows and Linux platforms. It provides a robust interface to initialize, start, stop, and test V2Ray proxy configurations, supporting both HTTP and SOCKS proxies. The library aims to streamline the process of connecting to V2Ray servers, making it easier for users to manage multiple configurations, test connectivity, and measure latency.</p>
+<section id="new-in-version-1-2-0">
+<h2>New in Version 1.2.0<a class="headerlink" href="#new-in-version-1-2-0" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Subscription Management</strong>: Full-featured subscription management with automatic updates, filtering, and metadata tracking</p></li>
+<li><p><strong>Configuration Metadata</strong>: Track latency, success rates, and tags for each configuration</p></li>
+<li><p><strong>Advanced Filtering</strong>: Filter configurations by protocol, latency, success rate, tags, and name patterns</p></li>
+<li><p><strong>Auto-Update</strong>: Automatic subscription updates with configurable intervals</p></li>
+<li><p><strong>Enhanced Logging</strong>: Improved logging system with function call tracking and colored output</p></li>
+</ul>
+</section>
+<section id="about-the-project">
+<h2>About the Project<a class="headerlink" href="#about-the-project" title="Link to this heading"></a></h2>
+<p>V2ROOT was created to address the complexities of managing V2Ray proxy configurations, offering a unified solution for both Windows and Linux environments. The project integrates low-level system operations with a high-level Python interface, enabling users to automate proxy management tasks efficiently.</p>
+</section>
+<section id="project-goals">
+<h2>Project Goals<a class="headerlink" href="#project-goals" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Simplify V2Ray Configuration Management</strong>: V2ROOT makes it easy to connect to V2Ray configurations (e.g., VLESS, VMess, Shadowsocks) by providing simple methods to set, test, and manage proxy settings. It eliminates the need for manual configuration file edits and complex command-line interactions.</p></li>
+<li><p><strong>Subscription Management</strong>: Manage multiple V2Ray subscriptions with automatic updates, filtering, and metadata tracking. Easily switch between configurations and find the best server for your needs.</p></li>
+<li><p><strong>Cross-Platform Support</strong>: The library ensures seamless operation on both Windows and Linux, handling platform-specific nuances like proxy settings and process management.</p></li>
+<li><p><strong>Performance Testing</strong>: V2ROOT allows users to test multiple configurations for connectivity and latency, helping them identify the best server for their needs.</p></li>
+<li><p><strong>Extensibility</strong>: By exposing a C API through shared libraries (DLL on Windows, SO on Linux), V2ROOT enables developers to integrate its functionality into other projects, regardless of the programming language.</p></li>
+</ul>
+</section>
+<section id="development-languages">
+<h2>Development Languages<a class="headerlink" href="#development-languages" title="Link to this heading"></a></h2>
+<p>V2ROOT is developed using a combination of <strong>Python</strong> and <strong>C</strong>:</p>
+<ul class="simple">
+<li><p><strong>Python</strong>: The high-level interface is written in Python, providing an easy-to-use API for end-users to manage V2Ray operations. This includes methods for starting/stopping the proxy, testing configurations, pinging servers, and managing subscriptions.</p></li>
+<li><p><strong>C</strong>: The core functionality is implemented in C for performance and direct system interaction. This includes managing V2Ray processes, handling network operations, and interfacing with system proxy settings. The C code is compiled into shared libraries (<code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> on Linux) that the Python layer interacts with via <code class="docutils literal notranslate"><span class="pre">ctypes</span></code>.</p></li>
+</ul>
+</section>
+<section id="project-information">
+<h2>Project Information<a class="headerlink" href="#project-information" title="Link to this heading"></a></h2>
+<p><strong>Authors</strong>: Project V2root | Sepehr0Day</p>
+<p><strong>Release Date</strong>: January 2025</p>
+<p><strong>Version</strong>: 1.2.0</p>
+<p><strong>About the Project</strong>: V2ROOT was created to address the complexities of managing V2Ray proxy configurations, offering a unified solution for both Windows and Linux environments. The project integrates low-level system operations with a high-level Python interface, enabling users to automate proxy management tasks efficiently.</p>
+<p><strong>Links</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/V2RayRoot/V2Root/">V2ROOT Repository</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/v2root/">V2ROOT Package</a></p></li>
+<li><p><a class="reference external" href="https://t.me/DevSepehr">Support Channel</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="V2ROOT Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quick_start.html" class="btn btn-neutral float-right" title="Quick Start Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+CC = gcc
+CFLAGS = -Wall -O2 -shared -fPIC -I/usr/include
+LDFLAGS = -L/usr/lib -ljansson -lcurl -lcjson
+SRC_DIR = src
+BUILD_DIR = build_linux
+TARGET = $(BUILD_DIR)/libv2root.so
+
+SOURCES = $(SRC_DIR)/libv2root_vless.c \
+          $(SRC_DIR)/libv2root_vmess.c \
+          $(SRC_DIR)/libv2root_shadowsocks.c \
+          $(SRC_DIR)/libv2root_manage.c \
+          $(SRC_DIR)/libv2root_core.c \
+          $(SRC_DIR)/libv2root_utils.c \
+          $(SRC_DIR)/libv2root_service.c \
+          $(SRC_DIR)/libv2root_linux.c
+
+OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+install:
+	@echo "Installing prerequisites for Linux..."
+	@echo "Detecting Linux distribution..."
+	@if command -v apt-get >/dev/null 2>&1; then \
+		echo "Detected Debian/Ubuntu-based system"; \
+		echo "Installing build tools and libraries..."; \
+		sudo apt-get update; \
+		sudo apt-get install -y build-essential gcc make libjansson-dev libcurl4-openssl-dev libcjson-dev libssl-dev pkg-config; \
+		echo "Installing V2Ray..."; \
+		sudo apt-get install -y v2ray || echo "V2Ray not available in repos, install manually from https://github.com/v2fly/fhs-install-v2ray"; \
+	elif command -v dnf >/dev/null 2>&1; then \
+		echo "Detected Fedora/RHEL-based system"; \
+		echo "Installing build tools and libraries..."; \
+		sudo dnf groupinstall -y "Development Tools"; \
+		sudo dnf install -y gcc make jansson-devel libcurl-devel cjson-devel openssl-devel pkg-config; \
+		echo "Installing V2Ray..."; \
+		sudo dnf install -y v2ray || echo "V2Ray not available in repos, install manually from https://github.com/v2fly/fhs-install-v2ray"; \
+	elif command -v yum >/dev/null 2>&1; then \
+		echo "Detected CentOS/RHEL-based system"; \
+		echo "Installing build tools and libraries..."; \
+		sudo yum groupinstall -y "Development Tools"; \
+		sudo yum install -y gcc make jansson-devel libcurl-devel cjson-devel openssl-devel pkg-config; \
+		echo "Installing V2Ray..."; \
+		sudo yum install -y v2ray || echo "V2Ray not available in repos, install manually from https://github.com/v2fly/fhs-install-v2ray"; \
+	elif command -v pacman >/dev/null 2>&1; then \
+		echo "Detected Arch Linux-based system"; \
+		echo "Installing build tools and libraries..."; \
+		sudo pacman -Sy --noconfirm base-devel gcc make jansson curl cjson openssl pkg-config; \
+		echo "Installing V2Ray..."; \
+		sudo pacman -S --noconfirm v2ray || echo "V2Ray not available in repos, install manually from https://github.com/v2fly/fhs-install-v2ray"; \
+	elif command -v zypper >/dev/null 2>&1; then \
+		echo "Detected openSUSE-based system"; \
+		echo "Installing build tools and libraries..."; \
+		sudo zypper install -y -t pattern devel_basis; \
+		sudo zypper install -y gcc make libjansson-devel libcurl-devel cjson-devel libopenssl-devel pkg-config; \
+		echo "Installing V2Ray..."; \
+		sudo zypper install -y v2ray || echo "V2Ray not available in repos, install manually from https://github.com/v2fly/fhs-install-v2ray"; \
+	else \
+		echo "Unsupported Linux distribution!"; \
+		echo "Please manually install: gcc, make, libjansson-dev, libcurl4-openssl-dev, libcjson-dev, libssl-dev, pkg-config, v2ray"; \
+		echo ""; \
+		echo "For V2Ray installation, run:"; \
+		echo "  bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)"; \
+		exit 1; \
+	fi
+	@echo ""
+	@echo "Installation complete!"
+	@echo "Verifying V2Ray installation..."
+	@if command -v v2ray >/dev/null 2>&1; then \
+		echo "✓ V2Ray is installed: $$(v2ray version | head -n 1)"; \
+	else \
+		echo "✗ V2Ray is NOT installed. Please install manually:"; \
+		echo "  bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)"; \
+	fi
+	@echo ""
+	@echo "Now you can build the library with: make -f Makefile.linux"
+
+clean:
+	rm -rf $(BUILD_DIR)
+
+.PHONY: all clean install

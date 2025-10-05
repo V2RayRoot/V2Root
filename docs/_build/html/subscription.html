@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscription Management &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Logging System" href="logger.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Subscription Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-subscription-manager">Creating a Subscription Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-subscriptions">Adding Subscriptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-subscriptions">Updating Subscriptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtering-configurations">Filtering Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-configurations">Testing Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sorting-configurations">Sorting Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-tags">Working with Tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-update">Auto-Update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#statistics">Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-configuration-strings">Getting Configuration Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-retrieved-configurations">Using Retrieved Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-multiple-configurations">Testing Multiple Configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-usage">Advanced Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-storage-location">Custom Storage Location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-operations">Batch Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#finding-best-configuration">Finding Best Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exception-handling">Exception Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subscriptionmanager">SubscriptionManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configmetadata">ConfigMetadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_options.html">Supported Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_api.html">C API Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Subscription Management</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/subscription.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="subscription-management">
+<span id="subscription"></span><h1>Subscription Management<a class="headerlink" href="#subscription-management" title="Link to this heading"></a></h1>
+<p>V2ROOT 1.2.0 introduces comprehensive subscription management capabilities, allowing you to manage multiple V2Ray subscriptions with automatic updates, filtering, and metadata tracking.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The subscription management system consists of three main classes:</p>
+<ul class="simple">
+<li><p><strong>SubscriptionManager</strong>: Manages multiple subscriptions and provides global filtering</p></li>
+<li><p><strong>Subscription</strong>: Represents a single subscription with auto-update capabilities</p></li>
+<li><p><strong>ConfigMetadata</strong>: Stores metadata for individual configurations (latency, success rate, tags)</p></li>
+</ul>
+</section>
+<section id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
+<section id="creating-a-subscription-manager">
+<h3>Creating a Subscription Manager<a class="headerlink" href="#creating-a-subscription-manager" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">SubscriptionManager</span>
+
+<span class="c1"># Create a subscription manager (storage in default location)</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">SubscriptionManager</span><span class="p">()</span>
+
+<span class="c1"># Or specify custom storage directory</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">SubscriptionManager</span><span class="p">(</span><span class="n">storage_dir</span><span class="o">=</span><span class="s2">&quot;/path/to/subscriptions&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-subscriptions">
+<h3>Adding Subscriptions<a class="headerlink" href="#adding-subscriptions" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a subscription</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/subscription&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My VPN&quot;</span><span class="p">,</span>
+    <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">update_interval</span><span class="o">=</span><span class="mi">86400</span><span class="p">,</span>  <span class="c1"># 24 hours</span>
+    <span class="n">fetch_now</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Added subscription with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configurations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="updating-subscriptions">
+<h3>Updating Subscriptions<a class="headerlink" href="#updating-subscriptions" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update a specific subscription</span>
+<span class="n">configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">update_subscription</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+<span class="c1"># Update all subscriptions</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">update_all</span><span class="p">()</span>
+
+<span class="c1"># Check update results</span>
+<span class="k">for</span> <span class="n">sub_id</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updated </span><span class="si">{</span><span class="n">sub_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="si">}</span><span class="s2"> configs&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed </span><span class="si">{</span><span class="n">sub_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="filtering-configurations">
+<h3>Filtering Configurations<a class="headerlink" href="#filtering-configurations" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter by protocol</span>
+<span class="n">vless_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">protocols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vless&#39;</span><span class="p">])</span>
+
+<span class="c1"># Filter by latency (requires testing first)</span>
+<span class="n">fast_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">max_latency</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># Filter by success rate (requires testing first)</span>
+<span class="n">reliable_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">min_success_rate</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="c1"># Filter by subscription tags</span>
+<span class="n">tagged_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">subscription_tags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;premium&#39;</span><span class="p">])</span>
+
+<span class="c1"># Filter by config tags</span>
+<span class="n">tagged_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">config_tags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="s1">&#39;stable&#39;</span><span class="p">])</span>
+
+<span class="c1"># Filter by name pattern (regex, case-insensitive)</span>
+<span class="n">us_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">name_contains</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;(US|United States)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Combine multiple filters</span>
+<span class="n">best_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span>
+    <span class="n">protocols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vless&#39;</span><span class="p">,</span> <span class="s1">&#39;vmess&#39;</span><span class="p">],</span>
+    <span class="n">max_latency</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+    <span class="n">min_success_rate</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+    <span class="n">name_contains</span><span class="o">=</span><span class="s1">&#39;Japan&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-configurations">
+<h3>Testing Configurations<a class="headerlink" href="#testing-configurations" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span>
+
+<span class="n">v2</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">()</span>
+
+<span class="c1"># Test configurations and update metadata</span>
+<span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">all_configs</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">latency</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">test_connection</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">config_string</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update_test_result</span><span class="p">(</span><span class="n">latency</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">latency</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update_test_result</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Failed - </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Now you can filter by latency and success rate</span>
+<span class="n">fast_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">max_latency</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sorting-configurations">
+<h3>Sorting Configurations<a class="headerlink" href="#sorting-configurations" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a subscription</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_subscription</span><span class="p">(</span><span class="n">sub_id</span><span class="p">)</span>
+
+<span class="c1"># Sort by latency (fastest first)</span>
+<span class="n">sorted_by_latency</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">sort_configs</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;latency&#39;</span><span class="p">)</span>
+
+<span class="c1"># Sort by success rate (most reliable first)</span>
+<span class="n">sorted_by_success</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">sort_configs</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;success_rate&#39;</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Sort by name</span>
+<span class="n">sorted_by_name</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">sort_configs</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+
+<span class="c1"># Sort by protocol</span>
+<span class="n">sorted_by_protocol</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">sort_configs</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;protocol&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-tags">
+<h3>Working with Tags<a class="headerlink" href="#working-with-tags" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add subscription with tags</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/subscription&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Premium VPN&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;premium&#39;</span><span class="p">,</span> <span class="s1">&#39;fast&#39;</span><span class="p">,</span> <span class="s1">&#39;reliable&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Add tags to configurations</span>
+<span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">configs</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;Japan&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;japan&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">last_latency</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">last_latency</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
+
+<span class="c1"># Filter by tags</span>
+<span class="n">premium_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">subscription_tags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;premium&#39;</span><span class="p">])</span>
+<span class="n">japan_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">filter_configs</span><span class="p">(</span><span class="n">config_tags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;japan&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="auto-update">
+<h3>Auto-Update<a class="headerlink" href="#auto-update" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable auto-update when adding subscription</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/subscription&quot;</span><span class="p">,</span>
+    <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">update_interval</span><span class="o">=</span><span class="mi">3600</span>  <span class="c1"># Update every hour</span>
+<span class="p">)</span>
+
+<span class="c1"># Or enable later</span>
+<span class="n">sub</span><span class="o">.</span><span class="n">auto_update</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">sub</span><span class="o">.</span><span class="n">start_auto_update</span><span class="p">()</span>
+
+<span class="c1"># Stop auto-update</span>
+<span class="n">sub</span><span class="o">.</span><span class="n">stop_auto_update</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="statistics">
+<h3>Statistics<a class="headerlink" href="#statistics" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get subscription statistics</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">get_statistics</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total configs: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total_configs&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tested configs: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;tested_configs&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average latency: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;average_latency&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Update success rate: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;success_rate&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Protocols: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;protocols&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get config metadata</span>
+<span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">configs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Protocol: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">protocol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Address: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Latency: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">last_latency</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Success rate: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">get_success_rate</span><span class="p">()</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tags: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="getting-configuration-strings">
+<h3>Getting Configuration Strings<a class="headerlink" href="#getting-configuration-strings" title="Link to this heading"></a></h3>
+<p>The simplest way to get configuration strings from subscriptions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">SubscriptionManager</span>
+
+<span class="n">manager</span> <span class="o">=</span> <span class="n">SubscriptionManager</span><span class="p">()</span>
+
+<span class="c1"># Get all config strings from all subscriptions</span>
+<span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configurations&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print first few configs</span>
+<span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">all_configs</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span><span class="p">)</span>  <span class="c1"># First 50 characters</span>
+
+<span class="c1"># Get configs from a specific subscription</span>
+<span class="n">sub_id</span> <span class="o">=</span> <span class="s2">&quot;70e98b603eb9884b728381f126452104&quot;</span>
+<span class="n">configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_configs_from_subscription</span><span class="p">(</span><span class="n">sub_id</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">configs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configs in subscription&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subscription not found&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get configs from a subscription object directly</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_subscription</span><span class="p">(</span><span class="n">sub_id</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">sub</span><span class="p">:</span>
+    <span class="n">configs</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">get_configs</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subscription has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-retrieved-configurations">
+<h3>Using Retrieved Configurations<a class="headerlink" href="#using-retrieved-configurations" title="Link to this heading"></a></h3>
+<p>Once you have the configuration strings, you can use them with V2ROOT:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span><span class="p">,</span> <span class="n">SubscriptionManager</span>
+
+<span class="c1"># Get all configs</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">SubscriptionManager</span><span class="p">()</span>
+<span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">()</span>
+
+<span class="c1"># Test and use the first config</span>
+<span class="k">if</span> <span class="n">all_configs</span><span class="p">:</span>
+    <span class="n">v2</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">()</span>
+
+    <span class="c1"># Test the config</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">latency</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">test_connection</span><span class="p">(</span><span class="n">all_configs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config tested: </span><span class="si">{</span><span class="n">latency</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Use it</span>
+        <span class="n">v2</span><span class="o">.</span><span class="n">set_config_string</span><span class="p">(</span><span class="n">all_configs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">v2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="c1"># ... do your work ...</span>
+
+        <span class="n">v2</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-multiple-configurations">
+<h3>Testing Multiple Configurations<a class="headerlink" href="#testing-multiple-configurations" title="Link to this heading"></a></h3>
+<p>Batch test configurations from subscriptions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span><span class="p">,</span> <span class="n">SubscriptionManager</span>
+
+<span class="n">manager</span> <span class="o">=</span> <span class="n">SubscriptionManager</span><span class="p">()</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">()</span>
+
+<span class="c1"># Get all configs</span>
+<span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Testing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configurations...&quot;</span><span class="p">)</span>
+
+<span class="n">tested_configs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_configs</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_configs</span><span class="p">)</span><span class="si">}</span><span class="s2">] Testing...&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">latency</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">test_connection</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">tested_configs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">config</span><span class="p">,</span> <span class="n">latency</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ </span><span class="si">{</span><span class="n">latency</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sort by latency</span>
+<span class="n">tested_configs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Use the fastest one</span>
+<span class="k">if</span> <span class="n">tested_configs</span><span class="p">:</span>
+    <span class="n">best_config</span><span class="p">,</span> <span class="n">best_latency</span> <span class="o">=</span> <span class="n">tested_configs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Best config: </span><span class="si">{</span><span class="n">best_latency</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+    <span class="n">v2</span><span class="o">.</span><span class="n">set_config_string</span><span class="p">(</span><span class="n">best_config</span><span class="p">)</span>
+    <span class="n">v2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-usage">
+<h2>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Link to this heading"></a></h2>
+<section id="custom-storage-location">
+<h3>Custom Storage Location<a class="headerlink" href="#custom-storage-location" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Use project-specific directory</span>
+<span class="n">storage_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;my_subscriptions&#39;</span><span class="p">)</span>
+<span class="n">manager</span> <span class="o">=</span> <span class="n">SubscriptionManager</span><span class="p">(</span><span class="n">storage_dir</span><span class="o">=</span><span class="n">storage_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-operations">
+<h3>Batch Operations<a class="headerlink" href="#batch-operations" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add multiple subscriptions</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;https://provider1.com/subscription&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://provider2.com/subscription&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://provider3.com/subscription&quot;</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
+    <span class="n">manager</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Provider </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">priority</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+        <span class="n">fetch_now</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+<span class="c1"># Update all and collect results</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">update_all</span><span class="p">()</span>
+<span class="n">successful</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updated </span><span class="si">{</span><span class="n">successful</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> subscriptions&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="finding-best-configuration">
+<h3>Finding Best Configuration<a class="headerlink" href="#finding-best-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span>
+
+<span class="n">v2</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">()</span>
+
+<span class="c1"># Test all configurations</span>
+<span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">()</span>
+<span class="n">tested_configs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">all_configs</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">latency</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">test_connection</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">config_string</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update_test_result</span><span class="p">(</span><span class="n">latency</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tested_configs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update_test_result</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Find best configuration</span>
+<span class="k">if</span> <span class="n">tested_configs</span><span class="p">:</span>
+    <span class="n">best_config</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">tested_configs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">last_latency</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best config: </span><span class="si">{</span><span class="n">best_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">best_config</span><span class="o">.</span><span class="n">last_latency</span><span class="si">}</span><span class="s2">ms)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Use it</span>
+    <span class="n">v2</span><span class="o">.</span><span class="n">set_config_string</span><span class="p">(</span><span class="n">best_config</span><span class="o">.</span><span class="n">config_string</span><span class="p">)</span>
+    <span class="n">v2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="exception-handling">
+<h3>Exception Handling<a class="headerlink" href="#exception-handling" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">SubscriptionError</span><span class="p">,</span> <span class="n">FetchError</span><span class="p">,</span> <span class="n">ParseError</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">add_subscription</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://example.com/subscription&quot;</span><span class="p">,</span>
+        <span class="n">fetch_now</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+<span class="k">except</span> <span class="n">FetchError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to fetch subscription: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to parse subscription: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">SubscriptionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subscription error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<section id="subscriptionmanager">
+<h3>SubscriptionManager<a class="headerlink" href="#subscriptionmanager" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">v2root.</span></span><span class="sig-name descname"><span class="pre">SubscriptionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages multiple V2Ray subscriptions with enhanced features.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">86400</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch_now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Subscription</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.add_subscription"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Add a new subscription with enhanced options.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">filter_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_success_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_latency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subscription_tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_contains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigMetadata</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.filter_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Filter configurations across all subscriptions.</p>
+<p>Returns ConfigMetadata objects (not strings) for advanced filtering.
+Use get_all_configs() if you just need config strings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_all_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.get_all_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get all configuration strings from all subscriptions.</p>
+<dl>
+<dt>Args:</dt><dd><p>enabled_only: If True, only return configs from enabled subscriptions (default: True)</p>
+</dd>
+<dt>Returns:</dt><dd><p>List[str]: List of all configuration strings</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get all configs from all subscriptions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total configs: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_configs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Include disabled subscriptions too</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_all_configs</span><span class="p">(</span><span class="n">enabled_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_configs_from_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subscription_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.get_configs_from_subscription"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get all configuration strings from a specific subscription.</p>
+<dl>
+<dt>Args:</dt><dd><p>subscription_id: ID of the subscription</p>
+</dd>
+<dt>Returns:</dt><dd><p>Optional[List[str]]: List of configuration strings, or None if subscription not found</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get configs from a specific subscription</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">configs</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_configs_from_subscription</span><span class="p">(</span><span class="n">sub_id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">configs</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configs&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">[:</span><span class="mi">50</span><span class="p">])</span>  <span class="c1"># Print first 50 chars of each</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subscription_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Subscription</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.get_subscription"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get a subscription by ID.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>subscription_id: ID of the subscription to get</p>
+</dd>
+<dt>Returns:</dt><dd><p>Subscription object or None if not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">list_subscriptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.list_subscriptions"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>List all subscriptions.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>List of subscription dictionaries</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">remove_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subscription_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.remove_subscription"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Remove a subscription.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>subscription_id: ID of the subscription to remove</p>
+</dd>
+<dt>Returns:</dt><dd><p>True if subscription was removed, False if not found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">update_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Exception</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.update_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update all subscriptions.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>timeout: Request timeout in seconds</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary mapping subscription IDs to either a list of configs or an exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">update_subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subscription_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionManager.update_subscription"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update a specific subscription.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>subscription_id: ID of the subscription to update
+timeout: Request timeout in seconds</p>
+</dd>
+<dt>Returns:</dt><dd><p>List of V2Ray configuration strings or None if subscription not found</p>
+</dd>
+<dt>Raises:</dt><dd><p>FetchError: If subscription cannot be fetched
+ParseError: If subscription content cannot be parsed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Key Methods:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_all_configs(enabled_only=True)</span></code> - Get all configuration strings from all subscriptions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_configs_from_subscription(subscription_id)</span></code> - Get all configuration strings from a specific subscription</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Subscription<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">v2root.</span></span><span class="sig-name descname"><span class="pre">Subscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_update</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">86400</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a V2Ray subscription with enhanced features.</p>
+<p>Features:
+- Metadata tracking for each configuration
+- Automatic and manual updates
+- Filtering and sorting capabilities
+- Statistics tracking
+- Tag support</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigMetadata</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Fetch and parse the subscription.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>timeout: Request timeout in seconds</p>
+</dd>
+<dt>Returns:</dt><dd><p>List of ConfigMetadata objects</p>
+</dd>
+<dt>Raises:</dt><dd><p>FetchError: If subscription cannot be fetched
+ParseError: If subscription content cannot be parsed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">filter_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_success_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_latency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_contains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigMetadata</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.filter_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Filter configurations based on criteria.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>protocols: List of protocols to include
+min_success_rate: Minimum success rate (0.0 to 1.0)
+max_latency: Maximum latency in milliseconds
+tags: List of tags (config must have at least one)
+name_contains: Regex pattern to match in config name (case-insensitive)</p>
+</dd>
+<dt>Returns:</dt><dd><p>Filtered list of ConfigMetadata objects</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If filter parameters are invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Subscription</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create a subscription from a dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_configs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.get_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get all configuration strings from this subscription.</p>
+<dl>
+<dt>Returns:</dt><dd><p>List[str]: List of configuration strings</p>
+</dd>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sub</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_subscription</span><span class="p">(</span><span class="n">sub_id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">configs</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">get_configs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">configs</span><span class="p">)</span><span class="si">}</span><span class="s2"> configs&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">configs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># First config string</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.get_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get subscription statistics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">sort_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'latency'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigMetadata</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.sort_configs"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Sort configurations.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>by: Sort criterion (‘latency’, ‘success_rate’, ‘name’, ‘protocol’)
+reverse: Whether to reverse the sort order</p>
+</dd>
+<dt>Returns:</dt><dd><p>Sorted list of ConfigMetadata objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">start_auto_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.start_auto_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Start auto-updating this subscription in the background.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">stop_auto_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.stop_auto_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Stop auto-updating this subscription.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Convert subscription to a dictionary for serialization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigMetadata</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#Subscription.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update the subscription (convenience method).</p>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Key Methods:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_configs()</span></code> - Get all configuration strings from this subscription</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fetch(timeout=30)</span></code> - Fetch and parse the subscription</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_auto_update()</span></code> - Start automatic updates</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stop_auto_update()</span></code> - Stop automatic updates</p></li>
+</ul>
+</section>
+<section id="configmetadata">
+<h3>ConfigMetadata<a class="headerlink" href="#configmetadata" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">v2root.</span></span><span class="sig-name descname"><span class="pre">ConfigMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/v2root/subscription.html#ConfigMetadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents metadata for a single V2Ray configuration.</p>
+<p>Stores information about protocol, server location, latency, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConfigMetadata</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#ConfigMetadata.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create from dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_success_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#ConfigMetadata.get_success_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Calculate success rate (0.0 to 1.0).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/v2root/subscription.html#ConfigMetadata.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Convert to dictionary for serialization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">update_test_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/v2root/subscription.html#ConfigMetadata.update_test_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update test results.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>latency: Measured latency in milliseconds
+success: Whether the test was successful</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="exceptions">
+<h3>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">v2root.</span></span><span class="sig-name descname"><span class="pre">SubscriptionError</span></span><a class="reference internal" href="_modules/v2root/subscription.html#SubscriptionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base exception for subscription-related errors.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">v2root.</span></span><span class="sig-name descname"><span class="pre">FetchError</span></span><a class="reference internal" href="_modules/v2root/subscription.html#FetchError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SubscriptionError</span></code></p>
+<p>Exception raised when a subscription URL cannot be fetched.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">v2root.</span></span><span class="sig-name descname"><span class="pre">ParseError</span></span><a class="reference internal" href="_modules/v2root/subscription.html#ParseError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SubscriptionError</span></code></p>
+<p>Exception raised when subscription content cannot be parsed.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logger.html" class="btn btn-neutral float-right" title="Logging System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

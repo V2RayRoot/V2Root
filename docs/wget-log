@@ -1,0 +1,17 @@
+--2025-10-05 13:20:57--  https://github.com/V2RayRoot/V2Root/releases/download/V1.2.0/libv2root-static-1.2.0.so
+Resolving github.com (github.com)... 140.82.121.3
+Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://release-assets.githubusercontent.com/github-production-release-asset/959944563/54998a11-8da3-4eb6-a02e-97309f3e7035?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-05T10%3A30%3A47Z&rscd=attachment%3B+filename%3Dlibv2root-static-1.2.0.so&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-05T09%3A30%3A07Z&ske=2025-10-05T10%3A30%3A47Z&sks=b&skv=2018-11-09&sig=xLJmjQjpAeJfi0JvuHSVQ2MBO5evAD%2BplP4GS1K5%2F10%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc1OTY1ODE1OCwibmJmIjoxNzU5NjU3ODU4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.nJPn9jdNcP4IqiaOL3nSENt8F_LHoZewnA6aHd454PY&response-content-disposition=attachment%3B%20filename%3Dlibv2root-static-1.2.0.so&response-content-type=application%2Foctet-stream [following]
+--2025-10-05 13:20:58--  https://release-assets.githubusercontent.com/github-production-release-asset/959944563/54998a11-8da3-4eb6-a02e-97309f3e7035?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-05T10%3A30%3A47Z&rscd=attachment%3B+filename%3Dlibv2root-static-1.2.0.so&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-05T09%3A30%3A07Z&ske=2025-10-05T10%3A30%3A47Z&sks=b&skv=2018-11-09&sig=xLJmjQjpAeJfi0JvuHSVQ2MBO5evAD%2BplP4GS1K5%2F10%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc1OTY1ODE1OCwibmJmIjoxNzU5NjU3ODU4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.nJPn9jdNcP4IqiaOL3nSENt8F_LHoZewnA6aHd454PY&response-content-disposition=attachment%3B%20filename%3Dlibv2root-static-1.2.0.so&response-content-type=application%2Foctet-stream
+Resolving release-assets.githubusercontent.com (release-assets.githubusercontent.com)... 185.199.109.133, 185.199.108.133, 185.199.110.133, ...
+Connecting to release-assets.githubusercontent.com (release-assets.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 88024 (86K) [application/octet-stream]
+Saving to: ‘libv2root-static-1.2.0.so’
+
+     0K .......... .......... .......... .......... .......... 58%  232K 0s
+    50K .......... .......... .......... .....                100% 1.71M=0.2s
+
+2025-10-05 13:20:59 (365 KB/s) - ‘libv2root-static-1.2.0.so’ saved [88024/88024]
+

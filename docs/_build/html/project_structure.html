@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Structure &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Troubleshooting" href="troubleshooting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscription.html">Subscription Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_options.html">Supported Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#file-descriptions">File Descriptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_api.html">C API Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Project Structure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/project_structure.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="project-structure">
+<h1>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h1>
+<p>This section describes the purpose of each file in the V2ROOT project, providing an overview of the codebase.</p>
+<section id="file-descriptions">
+<h2>File Descriptions<a class="headerlink" href="#file-descriptions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>v2root.py</strong>:
+The main Python interface for the V2ROOT library. This file defines the <code class="docutils literal notranslate"><span class="pre">V2ROOT</span></code> class, which provides methods to initialize, start, stop, and test V2Ray proxy configurations. It uses <code class="docutils literal notranslate"><span class="pre">ctypes</span></code> to interact with the underlying C shared libraries (<code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> on Linux).</p></li>
+<li><p><strong>__init__.py</strong>:
+The package initialization file for the <code class="docutils literal notranslate"><span class="pre">v2root</span></code> Python module. This file makes the directory a Python package and exposes the <code class="docutils literal notranslate"><span class="pre">V2ROOT</span></code> class for import (e.g., <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">v2root</span> <span class="pre">import</span> <span class="pre">V2ROOT</span></code>).</p></li>
+<li><p><strong>libv2root_common.h</strong>:
+A header file containing common definitions, macros, and utility functions used across the C codebase. This includes error codes, logging macros, and data structures shared between different modules.</p></li>
+<li><p><strong>libv2root_core.c</strong>:
+Implements the core functionality of V2ROOT, such as initializing the V2Ray core, managing the V2Ray process, and handling proxy operations. This file contains the main entry points for the shared library (e.g., <code class="docutils literal notranslate"><span class="pre">init_v2ray</span></code>, <code class="docutils literal notranslate"><span class="pre">start_v2ray</span></code>).</p></li>
+<li><p><strong>libv2root_core.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_core.c</span></code>, defining the function prototypes and data structures for core operations. This includes the API exposed to the Python layer via <code class="docutils literal notranslate"><span class="pre">ctypes</span></code>.</p></li>
+<li><p><strong>libv2root_linux.c</strong>:
+Contains Linux-specific implementations for managing V2Ray operations, such as process management (fork/exec), file operations, and proxy settings. This file handles platform-specific logic for Linux.</p></li>
+<li><p><strong>libv2root_linux.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_linux.c</span></code>, defining Linux-specific function prototypes and data structures.</p></li>
+<li><p><strong>libv2root_manage.c</strong>:
+Implements management functions for V2Ray configurations, such as parsing configuration strings (e.g., VLESS, VMess) and managing proxy ports. This file handles the logic for setting up and validating configurations.</p></li>
+<li><p><strong>libv2root_manage.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_manage.c</span></code>, defining function prototypes for configuration management.</p></li>
+<li><p><strong>libv2root_service.c</strong>:
+Manages the V2Ray service lifecycle, including starting and stopping the V2Ray process. This file handles process monitoring and logging for the V2Ray service.</p></li>
+<li><p><strong>libv2root_service.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_service.c</span></code>, defining function prototypes for service management.</p></li>
+<li><p><strong>libv2root_shadowsocks.c</strong>:
+Provides support for Shadowsocks configurations within V2ROOT. This file implements the logic to parse and handle Shadowsocks proxy settings, integrating them with V2Ray.</p></li>
+<li><p><strong>libv2root_shadowsocks.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_shadowsocks.c</span></code>, defining function prototypes for Shadowsocks support.</p></li>
+<li><p><strong>libv2root_utils.c</strong>:
+Contains utility functions used across the project, such as string manipulation, file I/O, and logging. This file provides helper functions to simplify common tasks in other modules.</p></li>
+<li><p><strong>libv2root_utils.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_utils.c</span></code>, defining utility function prototypes.</p></li>
+<li><p><strong>libv2root_vless.c</strong>:
+Implements support for VLESS protocol configurations. This file handles parsing and managing VLESS configuration strings, enabling V2ROOT to connect to VLESS servers.</p></li>
+<li><p><strong>libv2root_vless.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_vless.c</span></code>, defining function prototypes for VLESS support.</p></li>
+<li><p><strong>libv2root_vmess.c</strong>:
+Implements support for VMess protocol configurations. This file handles parsing and managing VMess configuration strings, enabling V2ROOT to connect to VMess servers.</p></li>
+<li><p><strong>libv2root_vmess.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_vmess.c</span></code>, defining function prototypes for VMess support.</p></li>
+<li><p><strong>libv2root_win.c</strong>:
+Contains Windows-specific implementations for managing V2Ray operations, such as process management, file operations, and system proxy settings. This file handles platform-specific logic for Windows.</p></li>
+<li><p><strong>libv2root_win.h</strong>:
+The header file for <code class="docutils literal notranslate"><span class="pre">libv2root_win.c</span></code>, defining Windows-specific function prototypes and data structures.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

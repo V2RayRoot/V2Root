@@ -1,0 +1,1050 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Troubleshooting &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Project Structure" href="project_structure.html" />
+    <link rel="prev" title="Supported Configuration Options" href="supported_options.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscription.html">Subscription Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_options.html">Supported Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-issues">Installation Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation-issues">Compilation Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-issues">Runtime Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-environment-issues">Virtual Environment Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-code-issues">Error Code Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#error-1-general-error">Error -1: General Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-2-service-error">Error -2: Service Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-3-config-error">Error -3: Config Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-4-connection-error">Error -4: Connection Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-5-initialization-error">Error -5: Initialization Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-6-proxy-error">Error -6: Proxy Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unknown-error-codes">Unknown Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_api.html">C API Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="troubleshooting">
+<span id="id1"></span><h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<p>This section covers common issues when using V2ROOT and how to resolve them.</p>
+<section id="installation-issues">
+<h2>Installation Issues<a class="headerlink" href="#installation-issues" title="Link to this heading"></a></h2>
+<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">v2root</span></code> fails with “No matching distribution found”.</p>
+<p><strong>Solution</strong>:
+- Ensure you have Python 3.8 or higher:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>--version
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Check your internet connection or try a different PyPI mirror:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>v2root<span class="w"> </span>--index-url<span class="w"> </span>https://pypi.org/simple
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> or <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> not found after installation.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li><p>Verify that the shared library is included in the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>show<span class="w"> </span>v2root
+ls<span class="w"> </span>-l<span class="w"> </span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import v2root; print(v2root.__path__[0])&quot;</span><span class="k">)</span>/lib
+</pre></div>
+</div>
+</li>
+<li><p>If missing, reinstall the package or manually place the library in the <code class="docutils literal notranslate"><span class="pre">lib/</span></code> directory.</p></li>
+<li><p><strong>Alternative solution for Linux</strong>: Download the pre-compiled static library and specify its path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the static library</span>
+wget<span class="w"> </span>https://github.com/V2RayRoot/V2Root/releases/download/V1.2.0/libv2root-static-1.2.0.so
+<span class="c1"># Move it to a suitable location</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/usr/local/lib/v2root
+sudo<span class="w"> </span>mv<span class="w"> </span>libv2root-static-1.2.0.so<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+<p>Then initialize V2ROOT with the custom library path:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span>
+
+<span class="c1"># Specify the custom library path</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">(</span><span class="n">lib_path</span><span class="o">=</span><span class="s2">&quot;/usr/local/lib/v2root/libv2root.so&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>For Windows</strong>: If you encounter library issues, you’ll need to compile the library yourself. Download the source code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/V2RayRoot/V2Root.git
+<span class="nb">cd</span><span class="w"> </span>V2Root/v2root/lib
+
+<span class="c1"># Compile using MSYS2/MinGW</span>
+make<span class="w"> </span>-f<span class="w"> </span>Makefile.win
+</pre></div>
+</div>
+<p>Then specify the compiled library path when initializing V2ROOT:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span>
+
+<span class="c1"># Specify the custom library path</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">(</span><span class="n">lib_path</span><span class="o">=</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">path</span><span class="se">\\</span><span class="s2">to</span><span class="se">\\</span><span class="s2">your</span><span class="se">\\</span><span class="s2">compiled</span><span class="se">\\</span><span class="s2">libv2root.dll&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="compilation-issues">
+<h2>Compilation Issues<a class="headerlink" href="#compilation-issues" title="Link to this heading"></a></h2>
+<p><strong>Problem</strong>: Compilation of <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> fails with “command not found” for <code class="docutils literal notranslate"><span class="pre">x86_64-w64-mingw32-gcc</span></code>.</p>
+<p><strong>Solution</strong>:
+- Ensure MSYS2 is installed and the MinGW64 environment is set up:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pacman<span class="w"> </span>-S<span class="w"> </span>mingw-w64-x86_64-gcc
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Add MinGW64 to your PATH:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/mingw64/bin
+</pre></div>
+</div>
+</li>
+<li><p>Compile again using the correct compiler.</p></li>
+</ul>
+</section>
+<section id="runtime-issues">
+<h2>Runtime Issues<a class="headerlink" href="#runtime-issues" title="Link to this heading"></a></h2>
+<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">start_proxy</span></code> fails with “Invalid configuration string”.</p>
+<p><strong>Solution</strong>:
+- Check the configuration string format (see <a class="reference internal" href="supported_options.html#supported-options"><span class="std std-ref">Supported Configuration Options</span></a>).
+- Example valid VLESS string: <code class="docutils literal notranslate"><span class="pre">vless://uuid&#64;example.com:443?type=tcp&amp;security=tls&amp;sni=example.com</span></code></p>
+<p><strong>Problem</strong>: Proxy starts but no connection is established.</p>
+<p><strong>Solution</strong>:
+- Verify the HTTP/SOCKS ports are not in use:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>netstat<span class="w"> </span>-tuln<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">10808</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Ensure the V2Ray executable is accessible and correctly configured (see <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a>).</p></li>
+</ul>
+</section>
+<section id="virtual-environment-issues">
+<h2>Virtual Environment Issues<a class="headerlink" href="#virtual-environment-issues" title="Link to this heading"></a></h2>
+<p><strong>Problem</strong>: Activating virtual environment in PowerShell fails with a security error.</p>
+<p><strong>Solution</strong>:
+- Change the execution policy:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Set-ExecutionPolicy<span class="w"> </span>-Scope<span class="w"> </span>CurrentUser<span class="w"> </span>-ExecutionPolicy<span class="w"> </span>RemoteSigned
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>Or activate in CMD:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="error-code-issues">
+<h2>Error Code Issues<a class="headerlink" href="#error-code-issues" title="Link to this heading"></a></h2>
+<p>This section explains common V2Ray error codes, their causes, and solutions. Always check the <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> file in your project directory for detailed error messages to identify the specific issue.</p>
+<section id="error-1-general-error">
+<h3>Error -1: General Error<a class="headerlink" href="#error-1-general-error" title="Link to this heading"></a></h3>
+<p><strong>What is Error Code -1?</strong></p>
+<p>Error Code -1 is a “General Error” in V2Root, meaning something unexpected prevented the program from completing your request. This is a catch-all error for issues like missing files, insufficient permissions, or system misconfigurations when processing your configuration string (e.g., <code class="docutils literal notranslate"><span class="pre">vless://</span></code>, <code class="docutils literal notranslate"><span class="pre">vmess://</span></code>, <code class="docutils literal notranslate"><span class="pre">ss://</span></code>).</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>This error can occur due to:
+- The configuration string is invalid or cannot be processed to create <code class="docutils literal notranslate"><span class="pre">config.json</span></code>.
+- On Linux, V2Ray is not installed or is outdated.
+- The program lacks permissions to access files or network resources.
+- The V2Root library file (<code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> on Linux) is missing or inaccessible.
+- Conflicts with antivirus or firewall software.</p>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these steps carefully to resolve the issue:</p>
+<ol class="arabic">
+<li><p><strong>Validate the Configuration String</strong>:
+- Ensure your configuration string starts with a supported protocol:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vless://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmess://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ss://</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Example valid string:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vless://user-id@server-address:443?security=tls&amp;type=tcp#MyVPN
+</pre></div>
+</div>
+</li>
+<li><p>Check for typos in the user ID, server address, or port. Contact your VPN provider for a correct string if unsure.</p></li>
+</ul>
+</li>
+<li><p><strong>Verify V2Ray Installation (Linux Only)</strong>:
+- Check if V2Ray is installed:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>v2ray<span class="w"> </span>version
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>If missing or outdated, install the latest version:</p>
+<ul>
+<li><p>For Ubuntu/Debian:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>v2ray
+</pre></div>
+</div>
+</li>
+<li><p>For CentOS/RHEL:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>v2ray
+</pre></div>
+</div>
+</li>
+<li><p>For other distros, download from the official V2Ray website.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Check V2Root Library File</strong>:</p>
+<ul>
+<li><p>On Windows, ensure <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> exists in the V2Root folder, for example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C:\V2Root\libv2root.dll
+</pre></div>
+</div>
+<ul>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">C:\V2Root\</span></code> with the actual folder where you installed V2Root.</p></li>
+<li><p>Check if it exists:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">dir </span><span class="n">C</span><span class="p">:\</span><span class="n">V2Root</span><span class="p">\</span><span class="n">libv2root</span><span class="p">.</span><span class="n">dll</span>
+</pre></div>
+</div>
+</li>
+<li><p>If missing, reinstall V2Root or contact support.</p></li>
+<li><p><strong>Alternative</strong>: Download the source and compile it yourself (see Installation Issues section above).</p></li>
+</ul>
+</li>
+<li><p>On Linux, ensure <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> exists, for example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+<ul>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">/usr/local/lib/v2root/</span></code> with the actual V2Root folder path.</p></li>
+<li><p>Check if it exists:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+</li>
+<li><p>Ensure it’s readable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+r<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+</li>
+<li><p>If missing, contact support or download the pre-compiled static library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/V2RayRoot/V2Root/releases/download/V1.2.0/libv2root-static-1.2.0.so
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/usr/local/lib/v2root
+sudo<span class="w"> </span>mv<span class="w"> </span>libv2root-static-1.2.0.so<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+<p>Then initialize V2ROOT with <code class="docutils literal notranslate"><span class="pre">lib_path=&quot;/usr/local/lib/v2root/libv2root.so&quot;</span></code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Check Port Availability</strong>:</p>
+<ul>
+<li><p>Ensure ports 10808 (HTTP) and 1080 (SOCKS) are free:</p>
+<ul>
+<li><p>On Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>netstat<span class="w"> </span>-tuln<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">10808</span>
+netstat<span class="w"> </span>-tuln<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">1080</span>
+</pre></div>
+</div>
+<ul>
+<li><p>If in use, find the program:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>lsof<span class="w"> </span>-i<span class="w"> </span>:10808
+</pre></div>
+</div>
+</li>
+<li><p>Stop it or change ports in your script.</p></li>
+</ul>
+</li>
+<li><p>On Windows:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">netstat</span> <span class="n">-an</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">10808</span>
+<span class="n">netstat</span> <span class="n">-an</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">1080</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If used, close the program via Task Manager or change ports.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Test Internet Connectivity</strong>:</p>
+<ul>
+<li><p>Check internet:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span><span class="m">8</span>.8.8.8
+</pre></div>
+</div>
+</li>
+<li><p>If no response, restart your router or contact your ISP.</p></li>
+<li><p>Test the server in your configuration string:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>server-address
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">server-address</span></code> with the address from your string. If it fails, contact your VPN provider.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Check Firewall and Antivirus</strong>:</p>
+<ul>
+<li><p>On Windows, allow <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> and <code class="docutils literal notranslate"><span class="pre">C:\V2Root\libv2root.dll</span></code> (use your path) in Windows Defender:</p>
+<ul class="simple">
+<li><p>Settings &gt; Update &amp; Security &gt; Windows Security &gt; Virus &amp; Threat Protection &gt; Manage Settings &gt; Exclusions.</p></li>
+</ul>
+</li>
+<li><p>On Linux, allow ports:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">10808</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">1080</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>status
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Inspect the Log File</strong>:</p>
+<ul>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> and look for:</p>
+<ul class="simple">
+<li><p>“Port already in use” (free ports).</p></li>
+<li><p>“Network unreachable” (check internet/server).</p></li>
+<li><p>“Invalid config” (check configuration string).</p></li>
+</ul>
+</li>
+<li><p>View log:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="error-2-service-error">
+<h3>Error -2: Service Error<a class="headerlink" href="#error-2-service-error" title="Link to this heading"></a></h3>
+<p><strong>What is Error Code -2?</strong></p>
+<p>Error Code -2 is a “Service Error” in V2Root, indicating that the V2Ray program failed to start or couldn’t connect to the internet after processing your configuration string. This error relates to issues with launching the V2Ray core or establishing network connectivity.</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>Common causes include:
+- On Linux, V2Ray is not installed or is outdated, preventing the service from starting.
+- Network ports (e.g., 10808, 1080) are already in use by another program.
+- A firewall or antivirus is blocking V2Ray’s network access.
+- Internet connectivity issues (e.g., no internet or server downtime).
+- The configuration string caused an invalid <code class="docutils literal notranslate"><span class="pre">config.json</span></code> to be generated.</p>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these detailed steps to resolve the issue:</p>
+<ol class="arabic">
+<li><p><strong>Validate the Configuration String</strong>:
+- Ensure your configuration string starts with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vless://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmess://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ss://</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Example valid string:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vless://user-id@server-address:443?security=tls&amp;type=tcp#MyVPN
+</pre></div>
+</div>
+</li>
+<li><p>Check for typos in the user ID, server address, or port. Contact your VPN provider for a correct string.</p></li>
+</ul>
+</li>
+<li><p><strong>Verify V2Ray Installation (Linux Only)</strong>:
+- Check if V2Ray is installed:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>v2ray<span class="w"> </span>version
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If missing or outdated, install the latest version (see Error -1, step 2 above).</p></li>
+</ul>
+</li>
+<li><p><strong>Check V2Root Library File</strong>:
+- Follow the same steps as Error -1, step 3 above. If missing, see the Installation Issues section.</p></li>
+<li><p><strong>Check Port Availability</strong>:
+- Follow the same steps as Error -1, step 4 above.</p></li>
+<li><p><strong>Test Internet Connectivity</strong>:
+- Follow the same steps as Error -1, step 5 above.</p></li>
+<li><p><strong>Check Firewall and Antivirus</strong>:
+- Follow the same steps as Error -1, step 6 above.</p></li>
+<li><p><strong>Inspect the Log File</strong>:
+- Follow the same steps as Error -1, step 7 above.</p></li>
+</ol>
+</section>
+<section id="error-3-config-error">
+<h3>Error -3: Config Error<a class="headerlink" href="#error-3-config-error" title="Link to this heading"></a></h3>
+<p><strong>What is Error Code -3?</strong></p>
+<p>Error Code -3 is a “Config Error” in V2Root, meaning the V2Ray configuration string you provided (e.g., <code class="docutils literal notranslate"><span class="pre">vless://</span></code>, <code class="docutils literal notranslate"><span class="pre">vmess://</span></code>, <code class="docutils literal notranslate"><span class="pre">ss://</span></code>) is incorrect, malformed, or incompatible. This prevents V2Root from generating a valid <code class="docutils literal notranslate"><span class="pre">config.json</span></code> file, which stops V2Ray from starting or connecting properly.</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>This error can occur because:
+- The configuration string has an invalid format or missing components (e.g., wrong protocol, missing user ID, or incorrect server address).
+- The server address, port, or user ID in the configuration string is wrong or outdated.
+- The V2Ray protocol in the string (e.g., <code class="docutils literal notranslate"><span class="pre">vless</span></code>, <code class="docutils literal notranslate"><span class="pre">vmess</span></code>) is not supported by your version of V2Ray or V2Root.
+- The program failed to parse the configuration string due to a bug or unsupported characters.
+- The VPN provider gave you an incorrect or expired configuration string.</p>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these detailed steps to resolve the issue:</p>
+<ol class="arabic">
+<li><p><strong>Validate the Configuration String</strong>:
+- Ensure your configuration string starts with a supported protocol:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vless://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmess://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ss://</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Example of a valid string:
+.. code-block:: none</p>
+<blockquote>
+<div><p>vless://user-id&#64;server-address:443?security=tls&amp;type=tcp#MyVPN</p>
+</div></blockquote>
+</li>
+<li><p>Check for:
+- <strong>User ID</strong>: A valid UUID or identifier (e.g., <code class="docutils literal notranslate"><span class="pre">123e4567-e89b-12d3-a456-426614174000</span></code>).
+- <strong>Server Address</strong>: A correct IP address (e.g., <code class="docutils literal notranslate"><span class="pre">192.168.1.1</span></code>) or domain (e.g., <code class="docutils literal notranslate"><span class="pre">vpn.example.com</span></code>).
+- <strong>Port</strong>: A number like <code class="docutils literal notranslate"><span class="pre">443</span></code> or <code class="docutils literal notranslate"><span class="pre">1080</span></code>.
+- <strong>Parameters</strong>: Correct settings like <code class="docutils literal notranslate"><span class="pre">security=tls</span></code> or <code class="docutils literal notranslate"><span class="pre">type=tcp</span></code>.</p></li>
+<li><p>Compare your string with examples from your VPN provider. Fix any typos or missing parts.</p></li>
+</ul>
+</li>
+<li><p><strong>Contact Your VPN Provider</strong>:
+- If you’re unsure about the configuration string, send it to your VPN provider (remove sensitive parts like the user ID if needed) and ask them to verify:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Is the protocol (<code class="docutils literal notranslate"><span class="pre">vless</span></code>, <code class="docutils literal notranslate"><span class="pre">vmess</span></code>, <code class="docutils literal notranslate"><span class="pre">ss</span></code>) correct?</p></li>
+<li><p>Is the server address and port still active?</p></li>
+<li><p>Are the user ID and other parameters valid?</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Request a new configuration string if yours is outdated or incorrect.</p></li>
+</ul>
+</li>
+<li><p><strong>Test the Server Address</strong>:
+- Extract the server address from your configuration string (e.g., <code class="docutils literal notranslate"><span class="pre">server-address</span></code> in <code class="docutils literal notranslate"><span class="pre">vless://user-id&#64;server-address:443</span></code>).
+- Test if it’s reachable:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>server-address
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If the ping fails, the server may be down or the address is wrong. Ask your VPN provider for an alternative server.</p></li>
+</ul>
+</li>
+<li><p><strong>Test a Different Configuration String</strong>:
+- Ask your VPN provider for another configuration string (e.g., a different server or protocol).
+- Update your script to use the new string (e.g., pass it to <code class="docutils literal notranslate"><span class="pre">set_config_string</span></code>) and rerun <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code>.</p></li>
+<li><p><strong>Update V2Ray (Linux Only)</strong>:
+- An outdated V2Ray version may not support newer protocols in the configuration string. Check the version:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>v2ray<span class="w"> </span>version
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If it’s missing or old, update or install V2Ray (see Error -1, step 2 above).</p></li>
+</ul>
+</li>
+<li><p><strong>Check Windows Setup</strong>:
+- On Windows, V2Ray is bundled with V2Root, so no separate installation is needed.
+- Ensure the file <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> is in the same folder as <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> or in the <code class="docutils literal notranslate"><span class="pre">lib/build_win</span></code> subdirectory.
+- If missing, see the Installation Issues section above.</p></li>
+<li><p><strong>Inspect the Log File</strong>:
+- Open <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> in the same folder as <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> with a text editor (e.g., Notepad on Windows, <code class="docutils literal notranslate"><span class="pre">nano</span></code> on Linux).
+- Look for errors related to the configuration string or <code class="docutils literal notranslate"><span class="pre">config.json</span></code> generation, such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Invalid configuration string” (check string format).</p></li>
+<li><p>“Failed to parse JSON” (indicates V2Root couldn’t create a valid <code class="docutils literal notranslate"><span class="pre">config.json</span></code> from the string).</p></li>
+<li><p>“Unknown protocol” (use a supported protocol like <code class="docutils literal notranslate"><span class="pre">vless</span></code> or <code class="docutils literal notranslate"><span class="pre">vmess</span></code>).</p></li>
+<li><p>“Server rejected” (wrong user ID, server address, or port).</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>View the log on Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+<li><p>If the log mentions <code class="docutils literal notranslate"><span class="pre">config.json</span></code>, it may show the generated file’s contents. Check for errors like missing fields or invalid JSON syntax.</p></li>
+</ul>
+</li>
+<li><p><strong>Reinstall V2Root</strong>:
+- If the program is failing to process the configuration string, there might be a bug or corrupted files.
+- Delete the V2Root folder and redownload the latest version from the official V2Root release page.
+- Extract and rerun <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> with your configuration string.</p></li>
+</ol>
+</section>
+<section id="error-4-connection-error">
+<h3>Error -4: Connection Error<a class="headerlink" href="#error-4-connection-error" title="Link to this heading"></a></h3>
+<p><strong>What is Error Code -4?</strong></p>
+<p>Error Code -4 is a “Connection Error” in V2Root, meaning the program couldn’t connect to the V2Ray server specified in your configuration string or use the network. This error occurs after V2Root generates <code class="docutils literal notranslate"><span class="pre">config.json</span></code> from the string and tries to establish a connection, indicating network or server issues.</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>Possible causes include:
+- The server address or port in the configuration string is incorrect or outdated.
+- The V2Ray server is down, unreachable, or rejecting connections.
+- Network ports (e.g., 10808 for HTTP, 1080 for SOCKS) are blocked by a firewall, router, or ISP.
+- No internet connection or an unstable network.
+- Other VPN or proxy software is interfering with V2Root’s network access.
+- The generated <code class="docutils literal notranslate"><span class="pre">config.json</span></code> has issues due to errors in the configuration string processing.</p>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these detailed steps to resolve the issue:</p>
+<ol class="arabic">
+<li><p><strong>Verify Server Address and Port in the Configuration String</strong>:</p>
+<ul>
+<li><p>Check your configuration string (e.g., <code class="docutils literal notranslate"><span class="pre">vless://user-id&#64;server-address:443?security=tls&amp;type=tcp#MyVPN</span></code>).</p></li>
+<li><p>Ensure the server address (e.g., <code class="docutils literal notranslate"><span class="pre">server-address</span></code>) and port (e.g., <code class="docutils literal notranslate"><span class="pre">443</span></code>) are correct.</p></li>
+<li><p>Test the server’s reachability:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>server-address
+</pre></div>
+</div>
+</li>
+<li><p>If the ping fails, the server may be down or the address is wrong. Contact your VPN provider to confirm the server details or get a new configuration string.</p></li>
+</ul>
+</li>
+<li><p><strong>Test a Different Configuration String</strong>:
+- Ask your VPN provider for an alternative configuration string with a different server or port.
+- Update your script to use the new string (e.g., pass it to <code class="docutils literal notranslate"><span class="pre">set_config_string</span></code>) and rerun <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code>.</p></li>
+<li><p><strong>Check Internet Connectivity</strong>:
+- Ensure your internet is working:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span><span class="m">8</span>.8.8.8
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If there’s no response, troubleshoot your network:</p>
+<ul>
+<li><p>Restart your router or modem.</p></li>
+<li><p>Check Wi-Fi or Ethernet connection.</p></li>
+<li><p>Contact your ISP if the issue persists.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Verify Port Availability</strong>:
+- V2Root uses ports 10808 (HTTP) and 1080 (SOCKS) by default for local connections. Ensure they’re not blocked or in use.
+- Follow the same steps as Error -1, step 4 above.</p></li>
+<li><p><strong>Check Firewall and Antivirus Settings</strong>:
+- On Windows, ensure Windows Defender or other antivirus allows <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> and <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Go to Settings &gt; Update &amp; Security &gt; Windows Security &gt; Virus &amp; Threat Protection &gt; Manage Settings &gt; Exclusions &gt; Add an exclusion for both files.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>On Linux, check if <code class="docutils literal notranslate"><span class="pre">ufw</span></code> or another firewall is blocking ports:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>status
+</pre></div>
+</div>
+<ul>
+<li><p>Allow V2Root’s ports:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">10808</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">1080</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Check your router’s firewall settings. If behind NAT, ensure ports 10808 and 1080 are forwarded.</p></li>
+<li><p>If your ISP blocks VPN ports, ask your VPN provider for a configuration string using a different port (e.g., 443).</p></li>
+</ul>
+</li>
+<li><p><strong>Inspect the Log File</strong>:
+- Open <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> in the same folder as <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> with a text editor.
+- Look for errors related to the connection or <code class="docutils literal notranslate"><span class="pre">config.json</span></code> generation, such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Connection refused” (wrong server address/port or server down).</p></li>
+<li><p>“Network timeout” (internet issue or server unreachable).</p></li>
+<li><p>“Failed to parse config” (indicates an issue with the generated <code class="docutils literal notranslate"><span class="pre">config.json</span></code> due to the configuration string).</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>View the log on Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Check for VPN/Proxy Conflicts</strong>:
+- Ensure no other VPN or proxy software (e.g., OpenVPN, NordVPN) is running, as they may interfere with V2Root.
+- On Windows, disable other VPNs:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Settings &gt; Network &amp; Internet &gt; VPN &gt; Disconnect any active VPNs.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>On Linux, stop other VPN services:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>openvpn
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Update V2Root and V2Ray</strong>:
+- On Linux, ensure V2Ray is up-to-date to handle the configuration string and network protocols:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>v2ray<span class="w"> </span>version
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>v2ray
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>On Windows, ensure you have the latest V2Root version:</p>
+<ul>
+<li><p>Delete the V2Root folder and redownload from the official V2Root release page.</p></li>
+<li><p>Verify <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> is present in the same folder as <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> or in <code class="docutils literal notranslate"><span class="pre">lib/build_win</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="error-5-initialization-error">
+<h3>Error -5: Initialization Error<a class="headerlink" href="#error-5-initialization-error" title="Link to this heading"></a></h3>
+<p><strong>What is Error Code -5?</strong></p>
+<p>Error Code -5 is an “Initialization Error” in V2Root, meaning the program couldn’t start V2Ray due to missing or misconfigured components when processing your configuration string. This occurs during the setup phase.</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>Possible causes include:</p>
+<ul class="simple">
+<li><p>On Linux, V2Ray is not installed system-wide.</p></li>
+<li><p>The V2Root library (<code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> on Windows, <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> on Linux) is missing or inaccessible.</p></li>
+<li><p>Missing system libraries (e.g., <code class="docutils literal notranslate"><span class="pre">libjansson</span></code> on Linux).</p></li>
+<li><p>Insufficient permissions for V2Root files.</p></li>
+<li><p>Incompatible system environment.</p></li>
+</ul>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Validate the Configuration String</strong>:</p>
+<ul>
+<li><p>Ensure it starts with:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vless://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmess://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ss://</span></code></p></li>
+</ul>
+</li>
+<li><p>Example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vless://user-id@server-address:443?security=tls&amp;type=tcp#MyVPN
+</pre></div>
+</div>
+</li>
+<li><p>Check for typos. Contact your VPN provider for a valid string.</p></li>
+</ul>
+</li>
+<li><p><strong>Verify V2Ray Installation (Linux Only)</strong>:
+- Check:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>v2ray<span class="w"> </span>version
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>If missing or outdated, install the latest V2Ray (see Error -1, step 2 above).</p></li>
+</ul>
+</li>
+<li><p><strong>Check V2Root Library File</strong>:
+- Follow the same steps as Error -1, step 3 above. If missing, see the Installation Issues section.</p></li>
+<li><p><strong>Check for Missing Libraries (Linux Only)</strong>:
+- Verify dependencies for <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code>:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldd<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Replace the path with your <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> location.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Install missing libraries, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libjansson-dev<span class="w"> </span>libc6
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Verify File Permissions</strong>:
+- Linux: Ensure <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> and <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> are accessible:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>v2root.py
+ls<span class="w"> </span>-l<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+chmod<span class="w"> </span>+x<span class="w"> </span>v2root.py
+chmod<span class="w"> </span>+r<span class="w"> </span>/usr/local/lib/v2root/libv2root.so
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Use your <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code> path.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Windows: Ensure <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> and <code class="docutils literal notranslate"><span class="pre">C:\V2Root\libv2root.dll</span></code> aren’t blocked:</p>
+<ul>
+<li><p>Right-click &gt; Properties &gt; Unblock (if visible).</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Inspect the Log File</strong>:
+- Open <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> for errors like:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“V2Ray core not found” (install V2Ray).</p></li>
+<li><p>“Library not found” (check <code class="docutils literal notranslate"><span class="pre">libv2root.dll</span></code> or <code class="docutils literal notranslate"><span class="pre">libv2root.so</span></code>).</p></li>
+<li><p>“Invalid config” (check configuration string).</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>View:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Update System</strong>:
+- Windows: Run Windows Update.
+- Linux:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="error-6-proxy-error">
+<h3>Error -6: Proxy Error<a class="headerlink" href="#error-6-proxy-error" title="Link to this heading"></a></h3>
+<p><strong>What is Error Code -6?</strong></p>
+<p>Error Code -6 is a “Proxy Error” in V2Root, meaning the program couldn’t set or clear your system’s proxy settings after processing your configuration string. This affects V2Root’s ability to configure V2Ray as a proxy.</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>Causes include:</p>
+<ul class="simple">
+<li><p>Insufficient permissions to modify proxy settings.</p></li>
+<li><p>Other VPN/proxy software interfering.</p></li>
+<li><p>Corrupted or locked system proxy settings.</p></li>
+<li><p>Antivirus blocking proxy changes.</p></li>
+<li><p>Issues with the generated <code class="docutils literal notranslate"><span class="pre">config.json</span></code> from the configuration string.</p></li>
+</ul>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Validate the Configuration String</strong>:</p>
+<ul>
+<li><p>Ensure it starts with:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vless://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vmess://</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ss://</span></code></p></li>
+</ul>
+</li>
+<li><p>Example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>vless://user-id@server-address:443?security=tls&amp;type=tcp#MyVPN
+</pre></div>
+</div>
+</li>
+<li><p>Check typos. Contact your VPN provider for a valid string.</p></li>
+</ul>
+</li>
+<li><p><strong>Run as Administrator</strong>:</p>
+<ul>
+<li><p>Windows: Right-click <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> &gt; “Run as administrator”.</p>
+<ul>
+<li><p>Or PowerShell as admin:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">v2root</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>python3<span class="w"> </span>v2root.py
+</pre></div>
+</div>
+<ul>
+<li><p>Ensure executable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>v2root.py
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Check V2Root Library File</strong>:
+- Follow the same steps as Error -1, step 3 above. If missing, see the Installation Issues section.</p></li>
+<li><p><strong>Check for Conflicting Software</strong>:
+- Close other VPNs/proxies.
+- Windows: Settings &gt; Network &amp; Internet &gt; Proxy &gt; No manual proxy unless needed.
+- Linux:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>openvpn
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Reset Proxy Settings</strong>:
+- Windows:</p>
+<blockquote>
+<div><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">netsh</span> <span class="n">winhttp</span> <span class="n">reset</span> <span class="n">proxy</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Restart PC.</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gsettings<span class="w"> </span>reset<span class="w"> </span>org.gnome.system.proxy
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Check Antivirus</strong>:
+- Windows: Add exceptions for <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> and <code class="docutils literal notranslate"><span class="pre">C:\V2Root\libv2root.dll</span></code> (your path) in Windows Defender.
+- Linux: Ensure no security software blocks V2Root.</p></li>
+<li><p><strong>Inspect the Log File</strong>:
+- Open <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> for:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Permission denied” (run as admin).</p></li>
+<li><p>“Proxy setting failed” (check conflicts).</p></li>
+<li><p>“Invalid config” (check configuration string).</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>View:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="unknown-error-codes">
+<h3>Unknown Error Codes<a class="headerlink" href="#unknown-error-codes" title="Link to this heading"></a></h3>
+<p><strong>What are Unknown Error Codes?</strong></p>
+<p>Unknown Error Codes in V2Root are any errors not explicitly identified as -1 through -6. These are unexpected issues that may arise due to bugs, system incompatibilities, or unique configurations not handled by V2Root’s error reporting.</p>
+<p><strong>Why Does This Happen?</strong></p>
+<p>Possible causes include:
+- A bug in V2Root or V2Ray.
+- System-specific issues (e.g., outdated OS, missing dependencies).
+- Conflicts with other software or drivers.
+- Invalid or corrupted configuration string causing unhandled errors.
+- Hardware or network issues not detected by V2Root.</p>
+<p><strong>How to Fix It</strong></p>
+<p>Follow these steps to troubleshoot:</p>
+<ol class="arabic">
+<li><p><strong>Inspect the Log File</strong>:</p>
+<ul>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code> in the same folder as <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code> with a text editor.</p></li>
+<li><p>Look for detailed error messages, such as:</p>
+<ul class="simple">
+<li><p>Specific error codes or messages not listed as -1 to -6.</p></li>
+<li><p>Stack traces or system errors (e.g., memory issues, library failures).</p></li>
+<li><p>Messages about configuration or network failures.</p></li>
+</ul>
+</li>
+<li><p>View the log on Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+<li><p>Note any specific errors for support.</p></li>
+</ul>
+</li>
+<li><p><strong>Validate the Configuration String</strong>:
+- Follow the same steps as Error -1, step 1 above.</p></li>
+<li><p><strong>Verify V2Ray Installation (Linux Only)</strong>:
+- Follow the same steps as Error -1, step 2 above.</p></li>
+<li><p><strong>Check V2Root Library File</strong>:
+- Follow the same steps as Error -1, step 3 above. If missing, see the Installation Issues section.</p></li>
+<li><p><strong>Restart the Program</strong>:
+- Close V2Root and rerun <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code>:</p>
+<blockquote>
+<div><ul>
+<li><p>Windows:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">v2root</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</li>
+<li><p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>v2root.py
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>If the error persists, try restarting your computer.</p></li>
+</ul>
+</li>
+<li><p><strong>Update System and Software</strong>:
+- Windows: Run Windows Update to ensure all system components are current.
+- Linux:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Reinstall V2Root if issues persist:</p>
+<ul>
+<li><p>Delete the V2Root folder and redownload from the official V2Root release page.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Check for Conflicts</strong>:
+- Ensure no other VPN, proxy, or network software is running.
+- Windows: Settings &gt; Network &amp; Internet &gt; VPN &gt; Disconnect any active VPNs.
+- Linux:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>openvpn
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Contact support via <a class="reference external" href="https://t.me/Sepehr0Day">Telegram (&#64;Sepehr0Day)</a> or <a class="reference external" href="https://github.com/V2RayRoot/V2Root/issues">GitHub Issues</a>.</p></li>
+<li><p>Include your script (e.g., <code class="docutils literal notranslate"><span class="pre">v2root.py</span></code>), configuration string (remove sensitive parts), <code class="docutils literal notranslate"><span class="pre">v2root.log</span></code>, and OS when reporting issues.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="supported_options.html" class="btn btn-neutral float-left" title="Supported Configuration Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="project_structure.html" class="btn btn-neutral float-right" title="Project Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

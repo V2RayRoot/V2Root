@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; V2ROOT 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=6efca38a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Quick Start Guide" href="quick_start.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            V2ROOT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-v2root">Installing V2ROOT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows-installation">Windows Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-installation">Linux Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting-on-linux">Troubleshooting on Linux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscription.html">Subscription Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Logging System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported_options.html">Supported Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_api.html">C API Usage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">V2ROOT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>This section covers the installation process for the V2ROOT library on both Linux and Windows platforms.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before installing V2ROOT, ensure you have the following:</p>
+<ul>
+<li><p><strong>Python 3.6 or higher</strong>: V2ROOT requires Python 3.6 or later. You can check your Python version with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>--version
+</pre></div>
+</div>
+</li>
+<li><p><strong>V2Ray</strong>: V2ROOT relies on the V2Ray core to function. This should already be installed and properly configured on your system.</p></li>
+</ul>
+</section>
+<section id="installing-v2root">
+<h2>Installing V2ROOT<a class="headerlink" href="#installing-v2root" title="Link to this heading"></a></h2>
+<p>V2ROOT can be easily installed using <code class="docutils literal notranslate"><span class="pre">pip</span></code> on both Linux and Windows.</p>
+<section id="windows-installation">
+<h3>Windows Installation<a class="headerlink" href="#windows-installation" title="Link to this heading"></a></h3>
+<p>On Windows, assuming all prerequisites (like V2Ray and required DLLs) are already installed, simply install V2ROOT using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>v2root
+</pre></div>
+</div>
+<p>This will download and install the V2ROOT package along with its dependencies (e.g., <code class="docutils literal notranslate"><span class="pre">colorama</span></code> for colored terminal output).</p>
+</section>
+<section id="linux-installation">
+<h3>Linux Installation<a class="headerlink" href="#linux-installation" title="Link to this heading"></a></h3>
+<p>On Linux, you can also install V2ROOT using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>v2root
+</pre></div>
+</div>
+<p>However, since V2ROOT relies on the V2Ray core, you may encounter issues if V2Ray is not properly installed or configured. If you run into errors (e.g., the “General Failure” error with code <code class="docutils literal notranslate"><span class="pre">-1</span></code>), follow the troubleshooting steps below.</p>
+</section>
+<section id="troubleshooting-on-linux">
+<h3>Troubleshooting on Linux<a class="headerlink" href="#troubleshooting-on-linux" title="Link to this heading"></a></h3>
+<p>If you encounter the error <code class="docutils literal notranslate"><span class="pre">Connection</span> <span class="pre">test</span> <span class="pre">failed:</span> <span class="pre">General</span> <span class="pre">failure</span> <span class="pre">(e.g.,</span> <span class="pre">file</span> <span class="pre">operation</span> <span class="pre">failed,</span> <span class="pre">fork</span> <span class="pre">failed,</span> <span class="pre">or</span> <span class="pre">system</span> <span class="pre">command</span> <span class="pre">error)</span></code> (error code <code class="docutils literal notranslate"><span class="pre">-1</span></code>), it typically means V2ROOT cannot find or execute the V2Ray core. Follow these steps to resolve the issue:</p>
+<ol class="arabic">
+<li><p><strong>Check the V2Ray Executable Path</strong>:</p>
+<p>V2ROOT expects the V2Ray executable (<code class="docutils literal notranslate"><span class="pre">v2ray</span></code>) to be located in the <code class="docutils literal notranslate"><span class="pre">lib/</span></code> directory of the package, typically at:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/&lt;your-username&gt;/.local/lib/python3.10/site-packages/v2root/lib/v2ray
+</pre></div>
+</div>
+<p>Verify that the <code class="docutils literal notranslate"><span class="pre">v2ray</span></code> executable exists and is executable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>/home/&lt;your-username&gt;/.local/lib/python3.10/site-packages/v2root/lib/v2ray
+</pre></div>
+</div>
+<p>If the file is missing or not executable, you’ll need to place the V2Ray core there. Proceed to the next step.</p>
+</li>
+<li><p><strong>Manually Download and Place the V2Ray Core</strong>:</p>
+<p>If the V2Ray executable is missing or not functional, download it manually:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/v2fly/v2ray-core/releases/download/v5.15.1/v2ray-linux-64.zip
+unzip<span class="w"> </span>v2ray-linux-64.zip<span class="w"> </span>-d<span class="w"> </span>/tmp/v2ray
+cp<span class="w"> </span>/tmp/v2ray/v2ray<span class="w"> </span>/home/&lt;your-username&gt;/.local/lib/python3.10/site-packages/v2root/lib/v2ray
+chmod<span class="w"> </span>+x<span class="w"> </span>/home/&lt;your-username&gt;/.local/lib/python3.10/site-packages/v2root/lib/v2ray
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;your-username&gt;</span></code> with your actual username.</p>
+</li>
+<li><p><strong>Test the V2Ray Core</strong>:</p>
+<p>Verify that the V2Ray core is functional by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/&lt;your-username&gt;/.local/lib/python3.10/site-packages/v2root/lib/v2ray<span class="w"> </span>version
+</pre></div>
+</div>
+<p>If this command outputs the V2Ray version (e.g., <code class="docutils literal notranslate"><span class="pre">V2Ray</span> <span class="pre">5.15.1</span></code>), the core is working correctly. If you get an error, check for missing dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldd<span class="w"> </span>/home/&lt;your-username&gt;/.local/lib/python3.10/site-packages/v2root/lib/v2ray
+</pre></div>
+</div>
+<p>If any libraries are missing (e.g., <code class="docutils literal notranslate"><span class="pre">libjansson.so</span></code> or <code class="docutils literal notranslate"><span class="pre">libssl.so</span></code>), install them:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libjansson-dev<span class="w"> </span>libssl-dev
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify Installation</strong>:</p>
+<p>After resolving any issues, test that V2ROOT can initialize properly by running a simple script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">v2root</span> <span class="kn">import</span> <span class="n">V2ROOT</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">V2ROOT</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;V2ROOT initialized successfully!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you still encounter errors, check the V2Ray logs for more details. The log files are created in the same directory as the script you are running. For example, if you run a script named <code class="docutils literal notranslate"><span class="pre">my_script.py</span></code>, the logs will be created as <code class="docutils literal notranslate"><span class="pre">v2ray_service.log</span></code>, <code class="docutils literal notranslate"><span class="pre">v2ray.log</span></code>, and <code class="docutils literal notranslate"><span class="pre">v2ray_err.log</span></code> in the same directory as <code class="docutils literal notranslate"><span class="pre">my_script.py</span></code>. You can view them with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>v2root.log
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quick_start.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project V2root | Sepehr0Day.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
