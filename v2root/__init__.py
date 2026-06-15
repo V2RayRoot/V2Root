@@ -1,29 +1,33 @@
 # v2root/__init__.py
-"""
-V2ROOT - A Python library for managing, using, and testing V2Ray configurations.
+"""Expose the stable public API for the V2Root Python SDK 2.0.
 
-This library provides a comprehensive interface for working with V2Ray proxy configurations, enabling users to:
-- Parse and validate V2Ray configuration strings (VLESS, VMess, Shadowsocks)
-- Test connections and measure latency
-- Batch test multiple configurations
-- Save and load configurations
-- Start and stop V2Ray proxy services
-- Manage system proxy settings
-- Handle subscription-based configurations
-
-Developed in Python with C extensions for high performance, V2Root supports:
-- Cross-platform compatibility (Windows and Linux)
-- Multiple protocol support (TCP, HTTP/2, WebSocket, mKCP, QUIC, gRPC)
-- Security features (TLS, Reality)
-- Configuration management
-- Subscription management
-
-Authors: Project V2Root, Sepehr0Day
-Version: 1.2.0
-License: MIT License
-Repository: https://github.com/V2RayRoot/V2Root
+The package provides managed V2Root Core installation, a direct native ABI
+binding, high-level runtime operations, typed value objects, subscription
+services, structured errors, and explicit logging configuration. Importing the
+package does not download a core, start a runtime, or create log files.
 """
 
+from .client import V2RootClient
+from .core import CoreManager
+from .errors import (
+    ConfigurationError,
+    CoreCompatibilityError,
+    CoreDownloadError,
+    CoreError,
+    CoreIntegrityError,
+    CoreNotInstalledError,
+    NativeCallError,
+    V2RootError,
+)
+from .models import (
+    InstalledCore,
+    LatencyResult,
+    RealtimeSpeed,
+    RuntimeStatus,
+    Traffic,
+    UpdateResult,
+    VersionInfo,
+)
 from .v2root import V2ROOT
 from .logger import (
     configure_logger, 
@@ -37,7 +41,7 @@ from .logger import (
     log_function_call,
     set_level
 )
-from .subscription import (
+from .subscriptions import (
     SubscriptionManager,
     Subscription,
     ConfigMetadata,
@@ -45,9 +49,27 @@ from .subscription import (
     FetchError,
     ParseError
 )
+from .errors import ErrorExplanation, ErrorExplainer, PersistenceError, explain_error
 
 __all__ = [
     'V2ROOT',
+    'V2RootClient',
+    'CoreManager',
+    'V2RootError',
+    'CoreError',
+    'CoreNotInstalledError',
+    'CoreDownloadError',
+    'CoreIntegrityError',
+    'CoreCompatibilityError',
+    'NativeCallError',
+    'ConfigurationError',
+    'InstalledCore',
+    'UpdateResult',
+    'VersionInfo',
+    'RuntimeStatus',
+    'LatencyResult',
+    'Traffic',
+    'RealtimeSpeed',
     'SubscriptionManager',
     'Subscription',
     'ConfigMetadata',
@@ -55,6 +77,10 @@ __all__ = [
     'SubscriptionError',
     'FetchError',
     'ParseError',
+    'PersistenceError',
+    'ErrorExplanation',
+    'ErrorExplainer',
+    'explain_error',
     
     'logger',
     'configure_logger',
@@ -72,9 +98,9 @@ __all__ = [
     '__email__',
 ]
 
-__version__ = '1.2.0'
+__version__ = '2.0.0'
 __author__ = 'Project V2Root, Sepehr0Day'
 __license__ = 'MIT'
 __email__ = 'sphrz2324@gmail.com'
 __url__ = 'https://github.com/V2RayRoot/V2Root'
-__description__ = 'A Python library for managing, using, and testing V2Ray configurations'
+__description__ = 'A managed Python SDK for V2Root Core, configurations, and subscriptions'

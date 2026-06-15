@@ -1,3 +1,10 @@
+"""Configure Sphinx to build the V2Root SDK reference documentation.
+
+The module is imported by Sphinx during documentation builds. Its module-level
+values define project identity, enabled extensions, source suffixes, templates,
+and HTML theme selection; it exposes no runtime library API.
+"""
+
 # Configuration file for the Sphinx documentation builder.
 
 import os
@@ -9,17 +16,20 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'V2ROOT'
-copyright = '2025, Project V2root | Sepehr0Day'
-author = 'Project V2root | Sepehr0Day'
-release = '1.2.0'
+project = 'V2Root Python SDK'
+copyright = '2026, Project V2Root'
+author = 'Project V2Root, Sepehr0Day'
+version = '2.0'
+release = '2.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx.ext.autodoc',  # For automatic API documentation
-    'sphinx.ext.viewcode',  # Add links to source code
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx',
 ]
 
 templates_path = ['_templates']
@@ -35,4 +45,9 @@ html_static_path = []  # Remove _static since it doesn't exist
 
 # Autodoc settings
 autodoc_mock_imports = []  # Don't mock anything, we want real imports
-
+autodoc_typehints = 'description'
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+}

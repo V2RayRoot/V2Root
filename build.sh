@@ -2,7 +2,7 @@
 
 mkdir -p dist
 
-VERSION=${1:-1.2.0}
+VERSION=${1:-2.0.0}
 docker build --build-arg VERSION=$VERSION -t v2root-build .
 
 docker run --rm -v "$(pwd)/dist:/host-dist" v2root-build

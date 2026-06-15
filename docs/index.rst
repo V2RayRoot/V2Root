@@ -1,17 +1,35 @@
-V2ROOT Documentation
-====================
+V2Root Python SDK 2.0
+=====================
+
+V2Root is a Python 3.10+ SDK for embedding, managing, and operating
+`V2Root Core <https://github.com/v2RayRoot/V2Root-Core>`_.
+
+Version 2.0:
+
+* downloads the official core automatically;
+* verifies release package SHA-256 manifests;
+* loads the core DLL/SO directly through a memory-safe ``ctypes`` boundary;
+* exposes typed runtime, traffic, speed, latency, and version models;
+* provides modular subscription parsing, persistence, scheduling, and ranking;
+* ships no C source, DLL, SO, or external V2Ray executable.
 
 .. toctree::
    :maxdepth: 2
+   :caption: User Guide
 
-   Home <home>
-   Quick Start Guide <quick_start>
+   home
    installation
+   quick_start
    usage
-   Subscription Management <subscription>
-   Logging System <logger>
-   Supported Configuration <supported_options>
-   Troubleshooting <troubleshooting>
+   subscription
+   logger
+   supported_options
+   troubleshooting
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Developer Reference
+
    project_structure
    api
-   C API Usage <c_api>
+   c_api

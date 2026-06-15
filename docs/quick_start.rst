@@ -1,83 +1,52 @@
-.. _quick_start:
+Quick Start
+===========
 
-Quick Start Guide
-=================
-
-This guide shows you how to quickly set up and use V2ROOT to manage a V2Ray proxy configuration.
-
-Prerequisites
--------------
-
-- Python 3.8 or higher
-- V2Ray executable installed (see :ref:`installation`)
-- A valid VLESS, VMess, or Shadowsocks configuration string
-
-Installation
-------------
-
-Install V2ROOT using pip:
-
-.. code-block:: bash
-
-   pip install v2root
-
-Example: Starting a VLESS Proxy
--------------------------------
-
-Here's a simple example to start a VLESS proxy using V2ROOT:
+Connect
+-------
 
 .. code-block:: python
 
-   from v2root import V2ROOT
+   from v2root import V2RootClient
 
-   # Initialize V2ROOT
-   v2 = V2ROOT()
+   config = "vless://REPLACE_ME"
 
-   # Set a VLESS string
-   vless_str = "vless://your-uuid@your-server:443?security=tls&type=tcp"
-   v2.set_config_string(vless_str)
+   with V2RootClient(http_port=2300, socks_port=2301) as client:
+       client.connect(config)
+       print(client.runtime_status)
+       print(client.version_info)
 
-   # Start V2Ray
-   v2.start()
+The context manager stops an active runtime during normal and exceptional exit.
 
-   # Stop V2Ray when done
-   v2.stop()
-
-Example: Using Subscriptions
-----------------------------
-
-V2ROOT 1.2.0 supports subscription management:
+Validate Without Starting
+-------------------------
 
 .. code-block:: python
 
-   from v2root import V2ROOT, SubscriptionManager
+   client = V2RootClient()
+   normalized = client.parse("trojan://REPLACE_ME")
+   print(client.validate(normalized))
 
-   # Create subscription manager
-   manager = SubscriptionManager()
+Latency
+-------
 
-   # Add a subscription
-   sub = manager.add_subscription(
-       url="https://your-provider.com/subscription",
-       name="My VPN"
+.. code-block:: python
+
+   results = client.test_latency_detailed(
+       ["vless://REPLACE_ME", "trojan://REPLACE_ME"],
+       timeout=10,
    )
 
-   # Get all configurations
-   configs = manager.get_all_configs()
-   print(f"Found {len(configs)} configurations")
+   for result in results:
+       if result.succeeded:
+           print(result.latency_ms)
+       else:
+           print(result.error)
 
-   # Use the first config
-   if configs:
-       v2 = V2ROOT()
-       v2.set_config_string(configs[0])
-       v2.start()
-       
-       # ... use the connection ...
-       
-       v2.stop()
+Core Update
+-----------
 
-Next Steps
-----------
+.. code-block:: python
 
-- Learn how to install V2ROOT properly: :ref:`installation`
-- Explore more configuration options: :ref:`supported_options`
-- Check the Python API: :ref:`api`
+   client.stop()
+   update = client.update_core()
+   print(update.changed, update.current.release_tag)

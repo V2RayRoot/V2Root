@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "v2root"
+version = "2.0.0"
+description = "Managed Python SDK for V2Root Core, proxy configurations, and subscriptions"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "Project V2Root, Sepehr0Day", email = "sphrz2324@gmail.com" }
+]
+dependencies = ["colorama>=0.4.6"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Internet :: Proxy Servers",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/V2RayRoot/V2Root"
+Documentation = "https://v2root.readthedocs.io/en/latest/"
+Core = "https://github.com/v2RayRoot/V2Root-Core"
+Issues = "https://github.com/V2RayRoot/V2Root/issues"
+Source = "https://github.com/V2RayRoot/V2Root"
+
+[tool.setuptools.packages.find]
+include = ["v2root*"]
